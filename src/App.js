@@ -7,6 +7,7 @@ import DeliveryUserHomePage from './components/DeliveryUserHomePage';
 import RestaurantManagerHomePage from './components/RestaurantManagerHomePage';
 import UserContext from './components/context/UserContext';
 import React, { useState, useEffect } from 'react';
+import Register from './components/Register';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Login/>}/>
+                    <Route path='/register' element={<Register/>}/>
                     <Route path='/home-client' element={<ClientHomePage/>}/>
                     <Route path='/home-admin' element={<AdminHomePage/>}/>
                     <Route path='/home-delivery-user' element={<DeliveryUserHomePage/>}/>
@@ -37,22 +39,6 @@ function App() {
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>
-        // <div className="App">
-        //   <header className="App-header">
-        //     <img src={logo} className="App-logo" alt="logo" />
-        //     <p>
-        //       Edit <code>src/App.js</code> and save to reload.
-        //     </p>
-        //     <a
-        //       className="App-link"
-        //       href="https://reactjs.org"
-        //       target="_blank"
-        //       rel="noopener noreferrer"
-        //     >
-        //       Learn React
-        //     </a>
-        //   </header>
-        // </div>
     );
 }
 
