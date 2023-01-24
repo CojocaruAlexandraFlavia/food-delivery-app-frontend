@@ -8,6 +8,9 @@ import RestaurantManagerHomePage from './components/RestaurantManagerHomePage';
 import UserContext from './components/context/UserContext';
 import React, { useState, useEffect } from 'react';
 import Register from './components/Register';
+import AddRestaurantManager from './components/AddRestaurantManager';
+import AddRestaurant from './components/AddRestaurant';
+import UpdateRestaurant from './components/UpdateRestaurant';
 
 function App() {
 
@@ -36,6 +39,9 @@ function App() {
                     <Route path='/home-admin' element={<AdminHomePage/>}/>
                     <Route path='/home-delivery-user' element={<DeliveryUserHomePage/>}/>
                     <Route path='/home-restaurant-manager' element={<RestaurantManagerHomePage/>}/>
+                    <Route path='/add-restaurant-manager' element={<AddRestaurantManager/>}/>
+                    <Route path='/add-restaurant' element={<AddRestaurant/>}/>
+                    <Route path='/update-restaurant/:id' element={<UpdateRestaurant/>}/>
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>
