@@ -9,6 +9,10 @@ import ProductsPage from './components/ProductsPage';
 import UserContext from './components/context/UserContext';
 import React, { useState, useEffect } from 'react';
 import Register from './components/Register';
+import AddRestaurantManager from './components/AddRestaurantManager';
+import AddRestaurant from './components/AddRestaurant';
+import UpdateRestaurant from './components/UpdateRestaurant';
+import AddReview from './components/AddReview';
 
 function App() {
 
@@ -38,6 +42,10 @@ function App() {
                     <Route path='/home-delivery-user' element={<DeliveryUserHomePage/>}/>
                     <Route path='/home-restaurant-manager' element={<RestaurantManagerHomePage/>}/>
                     <Route path='/products' exact={true} element={<ProductsPage/>}/>
+                    <Route path='/add-restaurant-manager' element={<AddRestaurantManager/>}/>
+                    <Route path='/add-restaurant' element={<AddRestaurant/>}/>
+                    <Route path='/update-restaurant/:id' element={<UpdateRestaurant/>}/>
+                    <Route path='/add-review' element={<AddReview/>}/>
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>
