@@ -5,6 +5,7 @@ import ClientHomePage from './components/ClientHomePage';
 import AdminHomePage from './components/AdminHomePage';
 import DeliveryUserHomePage from './components/DeliveryUserHomePage';
 import RestaurantManagerHomePage from './components/RestaurantManagerHomePage';
+import ProductsPage from './components/ProductsPage';
 import UserContext from './components/context/UserContext';
 import React, { useState, useEffect } from 'react';
 import Register from './components/Register';
@@ -36,6 +37,7 @@ function App() {
                     <Route path='/home-admin' element={<AdminHomePage/>}/>
                     <Route path='/home-delivery-user' element={<DeliveryUserHomePage/>}/>
                     <Route path='/home-restaurant-manager' element={<RestaurantManagerHomePage/>}/>
+                    <Route path='/products' exact={true} element={<ProductsPage/>}/>
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>
