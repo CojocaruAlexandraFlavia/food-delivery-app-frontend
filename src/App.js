@@ -13,6 +13,7 @@ import AddRestaurantManager from './components/AddRestaurantManager';
 import AddRestaurant from './components/AddRestaurant';
 import UpdateRestaurant from './components/UpdateRestaurant';
 import AddReview from './components/AddReview';
+import Order from './components/Order';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         }
     }, [])
 
+    
     return (
         <UserContext.Provider value={{user, setUser}}>
             <BrowserRouter>
@@ -46,6 +48,7 @@ function App() {
                     <Route path='/add-restaurant' element={<AddRestaurant/>}/>
                     <Route path='/update-restaurant/:id' element={<UpdateRestaurant/>}/>
                     <Route path='/add-review' element={<AddReview/>}/>
+                    <Route path='/order/:id' element={<Order/>}/>
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>
