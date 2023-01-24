@@ -1,23 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { useParams } from "react-router"
 
 
 const ProductsPage = () => {
 
-    const [products, setProducts] = useState([]);
+    const {id} = useParams()
+    const [products, setProducts] = useState({
+        name:"",
+        ingredients:"",
+        price:"",
+        discount:"",
+        availability:"",
+        categoryName:"",
+        restaurantName:""
+    })
     const [loading, setLoading] = useState(false);
   
     useEffect(() => {
       setLoading(true);
   
-      fetch('/product/get-by-id/${id}')
+      fetch(`/product/get-by-id/${id}`)
         .then(response => response.json())
-        .then(data => {
-          setProducts(data);
+        .then(response => {
+          setProducts({
+            name: response.name,
+            ingredients:response.ingredients,
+            price:response.price,
+            discount:response.discount,
+            availability:response.availability,
+            categoryName:response.categoryName,
+            restaurantName:response.restaurantName
+        })
           setLoading(false);
         })
-    }, []);
+    }, [id]);
   
     if (loading) {
       return <p>Loading...</p>;
