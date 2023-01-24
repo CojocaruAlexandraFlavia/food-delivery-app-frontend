@@ -16,7 +16,7 @@ const ProductsPage = () => {
         categoryName:"",
         restaurantName:""
     })
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       setLoading(true);
@@ -24,15 +24,7 @@ const ProductsPage = () => {
       fetch(`/product/get-by-id/${id}`)
         .then(response => response.json())
         .then(response => {
-          setProducts({
-            name: response.name,
-            ingredients:response.ingredients,
-            price:response.price,
-            discount:response.discount,
-            availability:response.availability,
-            categoryName:response.categoryName,
-            restaurantName:response.restaurantName
-        })
+          setProducts(response)
           setLoading(false);
         })
     }, [id]);
