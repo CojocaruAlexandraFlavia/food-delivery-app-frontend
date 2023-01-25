@@ -2,11 +2,13 @@ import { Fragment, useEffect } from "react"
 import { useState } from "react"
 import { Col, Container, Row, Table } from "react-bootstrap"
 import { useParams } from "react-router"
-import LoadingSpinner from "./util/LoadinSpinner"
+import LoadingSpinner from "./util/LoadingSpinner"
 
-const Order = () => {
+const Order = ({orderId}) => {
 
-    const {id} = useParams()
+    const {idParam} = useParams()
+    let id = idParam !== null ? idParam : orderId
+   
 
     const [order, setOrder] = useState({})
     const [deliveryUser, setDeliveryUser] = useState({})
