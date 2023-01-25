@@ -13,6 +13,8 @@ import AddRestaurant from './components/AddRestaurant';
 import UpdateRestaurant from './components/UpdateRestaurant';
 import AddReview from './components/AddReview';
 import Order from './components/Order';
+import ClientAccountInfoMenu from './components/client menu/ClientAccountInfoMenu';
+import AdminAccountMenu from './components/admin menu/AdminAccountMenu';
 
 function App() {
 
@@ -47,6 +49,26 @@ function App() {
                     <Route path='/update-restaurant/:id' element={<UpdateRestaurant/>}/>
                     <Route path='/add-review' element={<AddReview/>}/>
                     <Route path='/order/:id' element={<Order/>}/>
+                    
+                    {/* Client account menu */}
+                    <Route path='/client-account/saved-addresses' element={<ClientAccountInfoMenu/>}/>
+                    <Route path='/client-account/account-info' element={<ClientAccountInfoMenu/>}/>
+                    <Route path='/client-account/account-info/edit' element={<ClientAccountInfoMenu/>}/>
+                    <Route path='/client-account/orders/:id' element={<ClientAccountInfoMenu/>}/>
+                    <Route path='/client-account/orders' element={<ClientAccountInfoMenu/>}/>
+                    <Route path='/client-account/reviews' element={<ClientAccountInfoMenu/>}/>
+                    <Route path='/client-account/favorite-products' element={<ClientAccountInfoMenu/>}/>
+                    <Route path='/client-account/notifications' element={<ClientAccountInfoMenu/>}/>
+
+                    {/* Admin account menu */}
+                    <Route path='/admin-account/account-info' element={<AdminAccountMenu/>}/>
+                    <Route path='/admin-account/add-delivery-user' element={<AdminAccountMenu/>}/>
+                    <Route path='/admin-account/add-restaurant' element={<AdminAccountMenu/>}/>
+                    <Route path='/admin-account/restaurants' element={<AdminAccountMenu/>}/>
+                    <Route path='/admin-account/delivery-users' element={<AdminAccountMenu/>}/>
+                    <Route path='/admin-account/check-registered-users' element={<AdminAccountMenu/>}/>
+                    <Route path='/admin-account/check-orders-total-count' element={<AdminAccountMenu/>}/>
+
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>

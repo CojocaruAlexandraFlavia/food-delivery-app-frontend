@@ -3,9 +3,11 @@ import { Button, Container, Form } from "react-bootstrap"
 import { useParams } from "react-router"
 
 
-const UpdateRestaurant = () => {
+const UpdateRestaurant = ({restaurantId}) => {
 
-    const {id} = useParams()
+
+    const {paramId} = useParams()
+    const id = paramId !== null && paramId !== undefined? paramId: restaurantId
     const [restaurant, setRestaurant] = useState({
         name:"",
         phoneNumber:""
