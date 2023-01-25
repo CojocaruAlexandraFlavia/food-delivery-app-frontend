@@ -1,13 +1,14 @@
 import { useContext } from "react"
 import { useEffect, useState, useCallback } from "react"
 import { Col, Container, Row, ListGroup } from "react-bootstrap"
-import AddRestaurant from "../AddRestaurant"
+import AddRestaurant from "./AddRestaurant"
 import UserContext from "../context/UserContext"
 import AddDeliveryUser from "./AddDeliveryUser"
 import AdminAccountInfo from "./AdminAccountInfo"
 import AdminCheckOrders from "./AdminCheckOrders"
 import AdminCheckUsers from "./AdminCheckUsers"
 import ManageRestaurants from "./ManageRestaurants"
+import ManageDeliveryUsers from "./ManageDeliveryUsers"
 
 
 const AdminAccountMenu = () => {
@@ -89,7 +90,7 @@ const AdminAccountMenu = () => {
                         options.restaurants? <ManageRestaurants/>:
                         options.checkOrdersTotalCount? <AdminCheckOrders/>:
                         options.checkRegisteredUsers? <AdminCheckUsers/>:
-                        options.deliveryUsers? <checkRegisteredUsers/>: null
+                        options.deliveryUsers? <ManageDeliveryUsers/>: null
                     }
                 </Col>
             </Row>

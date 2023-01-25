@@ -1,6 +1,6 @@
 import { Fragment, useState, useCallback, useEffect } from "react"
 import { Button, Container, Modal } from "react-bootstrap"
-import UpdateRestaurant from "../UpdateRestaurant"
+import UpdateRestaurant from "./UpdateRestaurant"
 
 
 
@@ -63,7 +63,7 @@ const ManageRestaurants = () => {
                         <Button variant="danger" onClick={() => deleteRestaurant(restaurant.id)}>Delete</Button>
                         <Button onClick={() => setEditModal(true)}>Edit</Button>
                     </div> <br/>
-                    <Modal show={editModal} onExit={closeModal} onHide={closeModal}>
+                    <Modal show={editModal} onHide={closeModal}>
                         <Modal.Header closeButton>Edit restaurant</Modal.Header>
                         <Modal.Body>
                             <UpdateRestaurant restaurantId={restaurant.id}/>
