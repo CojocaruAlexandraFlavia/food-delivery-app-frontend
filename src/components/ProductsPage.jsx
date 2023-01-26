@@ -45,12 +45,12 @@ const ProductsPage = () => {
             {
                 allProducts.map((product, i) => <Fragment key={i}>
                     <div style={boxStyle}>
-                        <h3>Name: {product.name}</h3>
-                        <h3>Price: {product.price}</h3>
-                        <h3>Discount: {product.discount}</h3>
-                        <h3>Ingredients: {product.ingredients}</h3>
-                        <h3>Quantity: {product.quantity}</h3>
-                        <h3>Availability: {product.availability}</h3>
+                        <h4>{product.name}</h4>
+                        <h5>Price: {product.price}</h5>
+                        <h5>Discount: {product.discount}</h5>
+                        <h5>Ingredients: {product.ingredients}</h5>
+                        <h5>Quantity: {product.quantity}</h5>
+                        <h5>Availability: {product.availability}</h5>
                         
                         <br/>
                         {
