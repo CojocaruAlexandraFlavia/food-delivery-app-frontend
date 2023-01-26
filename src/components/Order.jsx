@@ -7,7 +7,7 @@ import LoadingSpinner from "./util/LoadingSpinner"
 const Order = ({orderId}) => {
 
     const {idParam} = useParams()
-    let id = idParam !== null ? idParam : orderId
+    let id = idParam !== undefined ? idParam : orderId
    
 
     const [order, setOrder] = useState({})
@@ -91,7 +91,9 @@ const Order = ({orderId}) => {
                         <Col md={6}>
                             <div style={{ boxShadow:"1px 1px 4px 4px grey", padding:"10px"}}>
                                 <h3>Delivery address</h3>
-
+                                <h4>{order.deliveryAddress.address} <br/>
+                                    {order.deliveryAddress.city}, {order.deliveryAddress.zipCode}
+                                </h4>
                             </div>
                         </Col>
                     </Row>

@@ -25,22 +25,22 @@ const Register = () => {
         const {firstName, lastName, confirmPassword, email, password} = user
         console.log(user)
         const newErrors = {}
-        const requiredField = "Câmp obligatoriu"
+        const requiredField = "Required field"
 
         if(firstName === "") newErrors.firstName = requiredField
         if(lastName === "") newErrors.lastName = requiredField
         if(email.length === 0) newErrors.email = requiredField
         else{
             const emailRegex = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/
-            if(!emailRegex.test(email)) newErrors.email = "Format invalid"
+            if(!emailRegex.test(email)) newErrors.email = "Invalid format"
         }
         if(password === "") newErrors.password = requiredField
         else if(password.length < 8) {
             console.log(password.length)
-            newErrors.password = "Parolă prea scurtă!"
+            newErrors.password = "Password too short!"
         }
         if(confirmPassword === "") newErrors.confirmPassword = requiredField
-        else if(password !== "" && confirmPassword !== "" && password !== confirmPassword) newErrors.confirmPassword = "Parolele nu coincid"
+        else if(password !== "" && confirmPassword !== "" && password !== confirmPassword) newErrors.confirmPassword = "Passwords don't match!"
 
         return newErrors
     }
