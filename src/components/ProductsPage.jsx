@@ -3,14 +3,14 @@ import { Button, Container, Modal } from "react-bootstrap"
 import { useParams } from "react-router"
 import UpdateProduct from "./UpdateProduct"
 
-
 const ProductsPage = ({restaurantId}) => {
 
     const {idParam} = useParams()
     let restId = idParam !== undefined ? idParam : restaurantId
 
     const [allProducts, setAllProducts] = useState([])
-    const [deleted, setDeleted] = useState(false)
+    const [setDeleted] = useState(false)
+    const [setChanged] = useState(false)
     const [editModal, setEditModal] = useState(false)
     const [productId, setProductId] = useState(0)
 
@@ -27,19 +27,32 @@ const ProductsPage = ({restaurantId}) => {
     const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"5px"}
 
     const deleteProduct = (id) => { 
-
-        fetch( `/product/delete-by-id/${id}`, {
-            method: "DELETE"
-        }).then(response => {
-            if(response.status === 200) {
-                getAllProducts()
-                setDeleted(true)
-                setTimeout(() => {
-                    setDeleted(false)
-                }, 5000)
-            }
-        })
+      fetch( `/product/delete-by-id/${id}`, {
+          method: "DELETE"
+      }).then(response => {
+          if(response.status === 200) {
+              getAllProducts()
+              setDeleted(true)
+              setTimeout(() => {
+                  setDeleted(false)
+              }, 5000)
+          }
+      })
     }
+
+    const changeAvailability = (id) => {
+      fetch(`/product/change-availability/${id}`, {
+          method: "PATCH",
+      }).then(response => {
+          if(response.status === 200) {
+              getAllProducts()
+              setChanged(true)       
+              setTimeout(() => {
+                  setChanged(false)
+              }, 5000)
+          } 
+      })
+    } 
 
     const closeModal = () => {
         setEditModal(false)
@@ -68,6 +81,7 @@ const ProductsPage = ({restaurantId}) => {
             
                       <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
                       <Button onClick={() => editProductId(product.id)}>Edit</Button>
+                      <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>
                   </div> <br/>
 
                   <Modal show={editModal} onHide={closeModal}>
