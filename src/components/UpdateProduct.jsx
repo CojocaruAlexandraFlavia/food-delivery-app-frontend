@@ -6,6 +6,7 @@ const UpdateProduct = ({productId}) => {
   
   const {paramId} = useParams()
   const id = paramId !== null && paramId !== undefined? paramId: productId
+  
   const [product, setProduct] = useState({
       name:"",
       price:"",

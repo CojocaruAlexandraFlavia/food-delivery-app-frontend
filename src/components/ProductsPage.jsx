@@ -1,19 +1,24 @@
 import { Fragment, useState, useCallback, useEffect } from "react"
 import { Button, Container, Modal } from "react-bootstrap"
+import { useParams } from "react-router"
 import UpdateProduct from "./UpdateProduct"
 
 
-const ProductsPage = () => {
+const ProductsPage = ({restaurantId}) => {
+
+    const {idParam} = useParams()
+    let restId = idParam !== undefined ? idParam : restaurantId
 
     const [allProducts, setAllProducts] = useState([])
     const [deleted, setDeleted] = useState(false)
     const [editModal, setEditModal] = useState(false)
+    const [productId, setProductId] = useState(0)
 
     const getAllProducts = useCallback(() => {
-        fetch("/product/get-all")
+        fetch(`/product/get-all-by-restaurantId/${restId}`)
             .then(response => response.json())
             .then(response => setAllProducts(response))
-    }, [])
+    }, [restId])
 
     useEffect(() => {
         getAllProducts()
@@ -40,6 +45,11 @@ const ProductsPage = () => {
         setEditModal(false)
     }
 
+    const editProductId = (id) => {
+      setProductId(id)
+      setEditModal(true)
+    }
+
     return(
         <Container>
             {
@@ -49,22 +59,21 @@ const ProductsPage = () => {
                         <h5>Price: {product.price}</h5>
                         <h5>Discount: {product.discount}</h5>
                         <h5>Ingredients: {product.ingredients}</h5>
-                        <h5>Quantity: {product.quantity}</h5>
-                        <h5>Availability: {product.availability}</h5>
+                        <h5>Availability: {product.availability.toString()}</h5>
                         
                         <br/>
-                        {
+                        {/* {
                             deleted? <h3>Deleted successfully</h3>: null
-                        }
+                        } */}
 
                         <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
-                        <Button onClick={() => setEditModal(true)}>Edit</Button>
+                        <Button onClick={() => editProductId(product.id)}>Edit</Button>
                     </div> <br/>
 
                     <Modal show={editModal} onHide={closeModal}>
                         <Modal.Header closeButton>Edit product</Modal.Header>
                         <Modal.Body>
-                            <UpdateProduct productId={product.id}/>
+                            <UpdateProduct productId={productId}/>
                         </Modal.Body>
                     </Modal>
                 </Fragment>)
