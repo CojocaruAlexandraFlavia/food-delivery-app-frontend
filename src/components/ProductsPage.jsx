@@ -53,30 +53,30 @@ const ProductsPage = ({restaurantId}) => {
     return(
         <Container>
             {
-                allProducts.map((product, i) => <Fragment key={i}>
-                    <div style={boxStyle}>
-                        <h4>{product.name}</h4>
-                        <h5>Price: {product.price}</h5>
-                        <h5>Discount: {product.discount}</h5>
-                        <h5>Ingredients: {product.ingredients}</h5>
-                        <h5>Availability: {product.availability.toString()}</h5>
-                        
-                        <br/>
-                        {/* {
-                            deleted? <h3>Deleted successfully</h3>: null
-                        } */}
+              allProducts.map((product, i) => <Fragment key={i}>
+                  <div style={boxStyle}>
+                      <h4>{product.name}</h4>
+                      <h5>Price: {product.price}</h5>
+                      <h5>Discount: {product.discount}</h5>
+                      <h5>Ingredients: {product.ingredients}</h5>
+                      <h5>Availability: {product.availability.toString()}</h5>
+                      
+                      <br/>
+                      { 
+                      //deleted? <h3>Deleted successfully</h3>: null 
+                      } 
+            
+                      <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
+                      <Button onClick={() => editProductId(product.id)}>Edit</Button>
+                  </div> <br/>
 
-                        <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
-                        <Button onClick={() => editProductId(product.id)}>Edit</Button>
-                    </div> <br/>
-
-                    <Modal show={editModal} onHide={closeModal}>
-                        <Modal.Header closeButton>Edit product</Modal.Header>
-                        <Modal.Body>
-                            <UpdateProduct productId={productId}/>
-                        </Modal.Body>
-                    </Modal>
-                </Fragment>)
+                  <Modal show={editModal} onHide={closeModal}>
+                      <Modal.Header closeButton>Edit product</Modal.Header>
+                      <Modal.Body>
+                          <UpdateProduct productId={productId}/>
+                      </Modal.Body>
+                  </Modal>
+              </Fragment>)
             }
           
         </Container>

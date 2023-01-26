@@ -45,7 +45,7 @@ function App() {
                     <Route path='/home-admin' element={<AdminHomePage/>}/>
                     <Route path='/home-delivery-user' element={<DeliveryUserHomePage/>}/>
                     <Route path='/home-restaurant-manager' element={<RestaurantManagerHomePage/>}/>
-                    <Route path='/products/:id' exact={true} element={<ProductsPage/>}/>
+                    <Route path='/products/:idParam' element={<ProductsPage/>}/>
                     <Route path='/add-restaurant-manager' element={<AddRestaurantManager/>}/>
                     <Route path='/add-restaurant' element={<AddRestaurant/>}/>
                     <Route path='/update-restaurant/:id' element={<UpdateRestaurant/>}/>
