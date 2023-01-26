@@ -42,7 +42,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                   
-                    <Route path='/restaurant' element={<RestaurantPage/>}/>
+                    <Route path='/restaurant/:idParam' element={<RestaurantPage/>}/>
                 
                     <Route path='/' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
