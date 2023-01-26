@@ -8,8 +8,13 @@ import RestaurantManagerHomePage from './components/RestaurantManagerHomePage';
 import UserContext from './components/context/UserContext';
 import React, { useState, useEffect } from 'react';
 import Register from './components/Register';
+import RestaurantPage from './components/RestaurantPage';
+
 
 function App() {
+
+
+  
 
     const [user, setUser] = useState({})
 
@@ -36,6 +41,7 @@ function App() {
                     <Route path='/home-admin' element={<AdminHomePage/>}/>
                     <Route path='/home-delivery-user' element={<DeliveryUserHomePage/>}/>
                     <Route path='/home-restaurant-manager' element={<RestaurantManagerHomePage/>}/>
+                    <Route path='/restaurant' element={<RestaurantPage/>}/>
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>
