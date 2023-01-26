@@ -9,7 +9,7 @@ const RestaurantPage = ({restaurantId}) => {
     const {idParam} = useParams()
     let id = idParam !== undefined ? idParam : restaurantId
 
-    const[product, setProduct]= useState([])
+  
     const[restaurant, setRestaurant] = useState([])
     const [loading, setLoading] = useState(true)
 
