@@ -23,8 +23,8 @@ const ProductsPage = ({restaurantId}) => {
       discount:"",
       ingredients:"",
       availability:true,
-      restaurant_id:restId,
-      category_id:""
+      restaurantId:restId,
+      categoryId:""
     })
 
     const getAllProducts = useCallback(() => {
@@ -86,7 +86,7 @@ const ProductsPage = ({restaurantId}) => {
 
 
     const findFormErrors = () => {
-      const {name, price, discount, ingredients, category_id} = product
+      const {name, price, discount, ingredients, categoryId} = product
       const newErrors = {}
       const requiredField = "Required field"
 
@@ -94,7 +94,7 @@ const ProductsPage = ({restaurantId}) => {
       if(price === "") newErrors.price = requiredField
       if(discount === "") newErrors.discount = requiredField
       if(ingredients === "") newErrors.ingredients = requiredField
-      if(category_id === "") newErrors.category_id = requiredField
+      if(categoryId === "") newErrors.categoryId = requiredField
       return newErrors
     }
 
@@ -137,8 +137,8 @@ const ProductsPage = ({restaurantId}) => {
                     discount:"",
                     ingredients:"",
                     availability:true,
-                    restaurant_id:restId,
-                    category_id:0
+                    restaurantId:restId,
+                    categoryId:0
                   })
                   setTimeout(() => {
                     setProductAdded(false)
@@ -205,9 +205,9 @@ const ProductsPage = ({restaurantId}) => {
                       <Form.Control.Feedback type={"invalid"}>{errors.ingredients}</Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group>
-                      <Form.Label>Category_id</Form.Label>
-                      <Form.Control id={"category_id"} value={product.category_id} isInvalid={errors.category_id} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.category_id}</Form.Control.Feedback>
+                      <Form.Label>Category Id</Form.Label>
+                      <Form.Control id={"categoryId"} value={product.categoryId} isInvalid={errors.categoryId} onChange={onChange}/>
+                      <Form.Control.Feedback type={"invalid"}>{errors.categoryId}</Form.Control.Feedback>
                   </Form.Group>
                 <Button variant="success" onClick={saveProduct}>Add product</Button>
                 <br/><br/>
