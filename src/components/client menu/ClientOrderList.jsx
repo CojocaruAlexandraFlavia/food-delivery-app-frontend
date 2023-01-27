@@ -22,7 +22,7 @@ const ClientOrderList = ({orders}) => {
                             <th>{order.dateTime}</th>
                             <th>{order.value + order.deliveryTax}</th>
                             <th>
-                                <a href={`/account/orders/${order.id}`}>See order</a>
+                                <a href={`/client-account/orders/${order.id}`}>See order</a>
                             </th>
                         </tr>): null
                     }

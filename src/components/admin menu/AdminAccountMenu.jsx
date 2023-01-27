@@ -72,7 +72,7 @@ const AdminAccountMenu = () => {
     return(
         <Container>
             <Row>
-                <Col md={6}>
+                <Col md={3}>
                     <ListGroup variant="flush">
                             {
                                 listItems.map((listItem, i) => <ListGroup.Item key={i} active={listItems[i] === listItemActive} 
@@ -82,7 +82,7 @@ const AdminAccountMenu = () => {
                             }
                     </ListGroup>
                 </Col>
-                <Col md={6}>
+                <Col md={9}>
                     {
                         options.accountInfo? <AdminAccountInfo admin={user}/>:
                         options.addDeliveryUser? <AddDeliveryUser/>:
