@@ -9,7 +9,7 @@ const ProductsPage = ({restaurantId}) => {
     let restId = idParam !== undefined ? idParam : restaurantId
 
     const [allProducts, setAllProducts] = useState([])
-    const [setDeleted] = useState(false)
+    const [deleted, setDeleted] = useState(false)
     const [setChanged] = useState(false)
     const [editModal, setEditModal] = useState(false)
     const [productId, setProductId] = useState(0)
@@ -159,17 +159,12 @@ const ProductsPage = ({restaurantId}) => {
                       <h5>Discount: {product.discount}</h5>
                       <h5>Ingredients: {product.ingredients}</h5>
                       <h5>Availability: {product.availability.toString()}</h5>
-                      
-                      <br/>
-                      { 
-                      //deleted? <h3>Deleted successfully</h3>: null 
-                      } 
             
                       <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
                       <Button onClick={() => editProductId(product.id)}>Edit</Button>
                       <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>
                   </div> <br/>
-
+                  
                   <Modal show={editModal} onHide={closeModal}>
                     <Modal.Header closeButton>Edit product</Modal.Header>
                     <Modal.Body>
@@ -177,7 +172,12 @@ const ProductsPage = ({restaurantId}) => {
                     </Modal.Body>
                   </Modal>
               </Fragment>)
-            }      
+            }
+
+            <br/>
+            { 
+              deleted? <h3>Deleted successfully</h3>: null 
+            }       
 
             <Button variant="success" onClick={saveOpenModal}>Add product</Button>
             <Modal show={saveModal} onHide={closeSaveModal}>
