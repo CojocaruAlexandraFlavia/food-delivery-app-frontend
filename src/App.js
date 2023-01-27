@@ -16,6 +16,7 @@ import AddReview from './components/AddReview';
 import Order from './components/Order';
 import ClientAccountInfoMenu from './components/client menu/ClientAccountInfoMenu';
 import AdminAccountMenu from './components/admin menu/AdminAccountMenu';
+import DeliveryUserAccountMenu from './components/delivery user menu/DeliveryUserAccountMenu';
 
 function App() {
 
@@ -50,7 +51,7 @@ function App() {
                     <Route path='/add-restaurant' element={<AddRestaurant/>}/>
                     <Route path='/update-restaurant/:id' element={<UpdateRestaurant/>}/>
                     <Route path='/add-review' element={<AddReview/>}/>
-                    <Route path='/order/:id' element={<Order/>}/>
+                    <Route path='/order/:idParam' element={<Order/>}/>
                     
                     {/* Client account menu */}
                     <Route path='/client-account/saved-addresses' element={<ClientAccountInfoMenu/>}/>
@@ -70,6 +71,13 @@ function App() {
                     <Route path='/admin-account/delivery-users' element={<AdminAccountMenu/>}/>
                     <Route path='/admin-account/check-registered-users' element={<AdminAccountMenu/>}/>
                     <Route path='/admin-account/check-orders-total-count' element={<AdminAccountMenu/>}/>
+
+                    {/* Deliver account menu */}
+                    <Route path='/deliver-account/account-info' element={<DeliveryUserAccountMenu/>}/>
+                    <Route path='/deliver-account/new-orders' element={<DeliveryUserAccountMenu/>}/>
+                    <Route path='/deliver-account/current-order' element={<DeliveryUserAccountMenu/>}/>
+                    <Route path='/deliver-account/delivered-orders' element={<DeliveryUserAccountMenu/>}/>
+                    <Route path='/deliver-account/delivered-orders/:id' element={<DeliveryUserAccountMenu/>}/>
 
                 </Routes>
             </BrowserRouter>
