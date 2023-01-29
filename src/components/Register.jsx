@@ -23,7 +23,6 @@ const Register = () => {
 
     const findFormErrors = () => {
         const {firstName, lastName, confirmPassword, email, password} = user
-        console.log(user)
         const newErrors = {}
         const requiredField = "Required field"
 
@@ -36,7 +35,6 @@ const Register = () => {
         }
         if(password === "") newErrors.password = requiredField
         else if(password.length < 8) {
-            console.log(password.length)
             newErrors.password = "Password too short!"
         }
         if(confirmPassword === "") newErrors.confirmPassword = requiredField
@@ -64,7 +62,7 @@ const Register = () => {
                 },
                 body: JSON.stringify(user),
             }).then(response => {
-                if(response.status === 409) setErrors({...errors, email: "Există un cont asociat cu această adresă de email!"})
+                if(response.status === 409) setErrors({...errors, email: "There is an account with this email address!"})
                 else if(response.status === 200) {
                     setErrors({})
                 }
@@ -78,14 +76,14 @@ const Register = () => {
                 <Row>
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label>Nume</Form.Label>
+                            <Form.Label>Last name</Form.Label>
                             <Form.Control isInvalid={errors.lastName} id={"lastName"} value={user.lastName} onChange={onChange}/>
                             <Form.Control.Feedback type={"invalid"}>{errors.lastName}</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label>Prenume</Form.Label>
+                            <Form.Label>First name</Form.Label>
                             <Form.Control isInvalid={errors.firstName} id={"firstName"} value={user.firstName} onChange={onChange}/>
                             <Form.Control.Feedback type={"invalid"}>{errors.firstName}</Form.Control.Feedback>
                         </Form.Group>
@@ -99,17 +97,16 @@ const Register = () => {
                 <Row className="mb-6">
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label>Parolă</Form.Label>
+                            <Form.Label>Password</Form.Label>
                             <Form.Control id={"password"} value={user.password} type="password" onChange={onChange} isInvalid={errors.password}/>
                             <Form.Control.Feedback type={"invalid"}>{errors.password}</Form.Control.Feedback>
-                            <PasswordStrengthBar password={user.password} minLength={8}
-                                                             scoreWords={["Parolă slabă", "Parolă ok", "Parolă bună", "Parolă puternică", "Parolă foarte puternică"]}
-                                                             shortScoreWord={"Parola trebuie să conțină cel puțin 8 caractere"}/>
+                            <PasswordStrengthBar password={user.password} minLength={8} scoreWords={["Weak", "OK", "Good", "Strong", "Very strong"]}
+                                                shortScoreWord={"Password should contain min. 8 characters"}/>
                         </Form.Group>
                     </Col>
                     <Col md={6}>
                         <Form.Group>
-                            <Form.Label>Confirmați parola</Form.Label>
+                            <Form.Label>Confirm password</Form.Label>
                             <Form.Control id={"confirmPassword"} value={user.confirmPassword} type="password" onChange={onChange} isInvalid={errors.confirmPassword}/>
                             <Form.Control.Feedback type={"invalid"}>{errors.confirmPassword}</Form.Control.Feedback>
                         </Form.Group>

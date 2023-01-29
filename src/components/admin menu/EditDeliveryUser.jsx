@@ -9,12 +9,13 @@ const EditDeliveryUser = ({user}) => {
     const [updated, setUpdated] = useState(false)
 
     const findFormErrors = () => {
-        const {firstName, lastName, email} = updatedUser
+        const {firstName, lastName, email, phoneNumber} = updatedUser
         const requiredField = "Required field"
         const newErrors = {}
 
         if(firstName === "") newErrors.firstName = requiredField
         if(lastName === "") newErrors.lastName = requiredField
+        if(phoneNumber === "") newErrors.phoneNumber = requiredField
         if(email === "") newErrors.email = requiredField
         else{
             const emailRegex = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/
@@ -71,6 +72,11 @@ const EditDeliveryUser = ({user}) => {
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
                     <Form.Control isInvalid={errors.email} id={"email"} value={updatedUser.email} type="email" onChange={onChange}/>
+                    <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Phone number</Form.Label>
+                    <Form.Control isInvalid={errors.phoneNumber} id={"phoneNumber"} value={updatedUser.phoneNumber} type="email" onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
                 </Form.Group>
                 <Button variant="success" onClick={updateDeliveryUser}>Save delivery user</Button>

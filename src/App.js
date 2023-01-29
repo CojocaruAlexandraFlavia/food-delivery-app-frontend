@@ -17,6 +17,7 @@ import Order from './components/Order';
 import ClientAccountInfoMenu from './components/client menu/ClientAccountInfoMenu';
 import AdminAccountMenu from './components/admin menu/AdminAccountMenu';
 import DeliveryUserAccountMenu from './components/delivery user menu/DeliveryUserAccountMenu';
+import ManagerMenu from './components/restaurant manager menu/ManagerMenu';
 
 function App() {
 
@@ -34,7 +35,6 @@ function App() {
                 .then(response => setUser(response))
         }
     }, [])
-
     
     return (
         <UserContext.Provider value={{user, setUser}}>
@@ -71,6 +71,7 @@ function App() {
                     <Route path='/admin-account/delivery-users' element={<AdminAccountMenu/>}/>
                     <Route path='/admin-account/check-registered-users' element={<AdminAccountMenu/>}/>
                     <Route path='/admin-account/check-orders-total-count' element={<AdminAccountMenu/>}/>
+                    <Route path='/admin-account/account-info/edit' element={<AdminAccountMenu/>}/>
 
                     {/* Deliver account menu */}
                     <Route path='/deliver-account/account-info' element={<DeliveryUserAccountMenu/>}/>
@@ -79,6 +80,12 @@ function App() {
                     <Route path='/deliver-account/delivered-orders' element={<DeliveryUserAccountMenu/>}/>
                     <Route path='/deliver-account/delivered-orders/:id' element={<DeliveryUserAccountMenu/>}/>
 
+                    {/* Manager account menu */}
+                    <Route path='/manager-account/account-info' element={<ManagerMenu/>}/>
+                    <Route path='/manager-account/owned-restaurants' element={<ManagerMenu/>}/>
+                    <Route path='/manager-account/owned-restaurants/:id' element={<ManagerMenu/>}/>
+                    <Route path='/manager-account/reviews' element={<ManagerMenu/>}/>
+                
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>

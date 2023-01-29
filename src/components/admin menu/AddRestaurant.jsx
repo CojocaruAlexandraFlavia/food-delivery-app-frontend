@@ -1,7 +1,4 @@
-import React from "react"
-import { useEffect } from "react"
-import { Fragment } from "react"
-import { useState } from "react"
+import React, { useEffect, Fragment, useState } from "react"
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import AddRestaurantManager from "./AddRestaurantManager"
 
