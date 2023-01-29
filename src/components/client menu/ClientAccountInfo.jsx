@@ -10,6 +10,7 @@ const ClientAccountInfo = ({user}) => {
             Email: {user.email} <br/>
             Phone number: {user.phoneNumber}
             </h3>
+            <a href="/client-account/account-info/edit">Edit details</a>
         </Container>
     )
 

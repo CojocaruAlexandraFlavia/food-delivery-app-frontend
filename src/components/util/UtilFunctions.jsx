@@ -20,7 +20,6 @@ const functions = {
             body: body
         })
     }
-
 }
 
 export default functions

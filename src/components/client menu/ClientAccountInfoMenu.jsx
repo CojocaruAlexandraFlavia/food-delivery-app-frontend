@@ -10,11 +10,12 @@ import ClientOrderList from "./ClientOrderList"
 import { useCallback } from "react"
 import UserContext from "../context/UserContext"
 import ClientNotifications from "./ClientNotifications"
+import ClientNavbar from "./ClientNavbar"
 
 
 const ClientAccountInfoMenu = () => {
 
-    const {user} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
     
     const listItems = ["account info", "orders", "saved addresses", "reviews", "favorite products", "notifications"]
     const [listItemActive, setListItemActive] = useState("")
@@ -60,6 +61,7 @@ const ClientAccountInfoMenu = () => {
 
     return(
         <Fragment>
+            <ClientNavbar/> <br/>
             <Container>
                 <Row>
                     <Col md={3}>
@@ -76,7 +78,7 @@ const ClientAccountInfoMenu = () => {
                         {
                             options.seeAccountInfo? <ClientAccountInfo user={user}/> :
                             options.seeAddresses? <ClientSavedAddresses addresses={user.addresses}/>:
-                            options.editInfo? <EditClientAccountInfo/>:
+                            options.editInfo? <EditClientAccountInfo user={user} setUser={setUser}/>:
                             options.seeFavoriteProducts? <ClientFavoriteProducts products={user.favoriteProducts}/>:
                             options.seeOrder? <Order orderId={orderId}/>:
                             options.seeOrderList? <ClientOrderList orders={user.orders}/>:

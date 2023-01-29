@@ -7,6 +7,7 @@ import Order from "../Order"
 import DeliverAccountInfo from "./DeliverAccountInfo"
 import DeliverCurrentOrder from "./DeliverCurrentOrder"
 import DeliveredOrders from "./DeliveredOrders"
+import DeliverNavbar from "./DeliverNavbar"
 import NewReceivedOrders from "./NewReceivedOrders"
 
 
@@ -40,23 +41,12 @@ const DeliveryUserAccountMenu = () => {
             updateFieldValue("seeOrder")
             setOrderId(secondParam)
         } else {
-
-            switch(activeListItem){
-                case "account info":
-                    updateFieldValue("accountInfo")
-                    break
-                case "new orders":
-                    updateFieldValue("newOrders")
-                    break
-                case "current order":
-                    updateFieldValue("currentOrder")
-                    break
-                case "delivered orders":
-                    updateFieldValue("deliveredOrders")
-                    break
-                default:
-                    console.log("default case")
+            const activeListItemWords = activeListItem.split(" ")
+            for(let i = 1; i < activeListItemWords.length; i++) {
+                activeListItemWords[i] = activeListItemWords[i][0].toUpperCase() + activeListItemWords[i].substring(1)
             }
+            const currentOption = activeListItemWords.join("")
+            updateFieldValue(currentOption)
         }
 
     }, [updateFieldValue])
@@ -67,6 +57,7 @@ const DeliveryUserAccountMenu = () => {
 
     return(
         <Fragment>
+            <DeliverNavbar/> <br/>
             <Container>
                 <Row>
                     <Col md={3}>

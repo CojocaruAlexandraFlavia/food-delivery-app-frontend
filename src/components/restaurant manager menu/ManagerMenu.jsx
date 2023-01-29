@@ -2,7 +2,9 @@ import { useContext, useCallback, useEffect, useState, Fragment } from "react"
 import { Container, Row, Col, ListGroup } from "react-bootstrap"
 import UserContext from "../context/UserContext"
 import ManagerAccountInfo from "./ManagerAccountInfo"
+import ManagerNavbar from "./ManagerNavbar"
 import ManagerOwnedRestaurants from "./ManagerOwnedRestaurants"
+import OwnedRestaurantReviews from "./OwnedRestaurantReviews"
 
 
 const ManagerMenu = () => {
@@ -35,7 +37,7 @@ const ManagerMenu = () => {
             updateFieldValue("seeRestaurant")
             setRestaurantId(secondParam)
         } else {
-            const activeListItemWords = activeListItem.split("")
+            const activeListItemWords = activeListItem.split(" ")
             for(let i = 1; i < activeListItemWords.length; i++) {
                 activeListItemWords[i] = activeListItemWords[i][0].toUpperCase() + activeListItemWords[i].substring(1)
             }
@@ -51,6 +53,7 @@ const ManagerMenu = () => {
 
     return(
         <Fragment>
+            <ManagerNavbar/> <br/>
             <Container>
                 <Row>
                     <Col md={3}>
@@ -66,9 +69,9 @@ const ManagerMenu = () => {
                     <Col md={9}>
                         {
                             options.accountInfo? <ManagerAccountInfo manager={user}/>:
-                            options.ownedRestaurants? <ManagerOwnedRestaurants restaurants={user.ownedRestaurants}/>:null
-                            // options.seeRestaurant? <DeliverCurrentOrder deliver={user}/>:
-                            // options.reviews? <NewReceivedOrders/>: null
+                            options.ownedRestaurants? <ManagerOwnedRestaurants restaurants={user.ownedRestaurants}/>:
+                            // options.seeRestaurant? <Restaurant restaurantId={restaurantId}/>:
+                            options.reviews? <OwnedRestaurantReviews restaurants={user.ownedRestaurants}/>: null
                         }
                     </Col>
                 </Row>

@@ -13,7 +13,7 @@ const AdminAccountInfo = ({admin}) => {
                     Phone number: {admin.phoneNumber}
                 </h3>: null
             }
-            
+            <a href={"/admin-account/account-info/edit"}>Edit info</a>
     </Container>
     )
 }

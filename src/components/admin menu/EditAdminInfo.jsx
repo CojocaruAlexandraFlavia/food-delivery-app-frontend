@@ -1,19 +1,17 @@
-import { useEffect } from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Container, Form, Button } from "react-bootstrap"
 
-const EditClientAccountInfo = ({user, setUser}) => {
-
-    const [updatedClient, setUpdatedClient] = useState(user)
+const EditAdminInfo = ({admin, setUser}) => {
+    const [updatedAdmin, setUpdatedAdmin] = useState(admin)
     const [errors, setErrors] = useState({})
     const [updated, setUpdated] = useState(false)
 
     useEffect(() => {
-        setUpdatedClient(user)
-    }, [user])
+        setUpdatedAdmin(admin)
+    }, [admin])
 
     const findFormErrors = () => {
-        const {firstName, lastName, email, phoneNumber} = updatedClient
+        const {firstName, lastName, email, phoneNumber} = updatedAdmin
         const requiredField = "Required field"
         const newErrors = {}
 
@@ -32,20 +30,20 @@ const EditClientAccountInfo = ({user, setUser}) => {
 
     const onChange = (e) => {
         const {id, value} = e.target
-        setUpdatedClient({ ...updatedClient, [id]: value });
+        setUpdatedAdmin({ ...updatedAdmin, [id]: value });
         if(errors[id]) {
             setErrors({...errors, [id]: null})
         }
     }
 
-    const updateClient = () => {
+    const updateAdmin = () => {
         const newErrors = findFormErrors()
         if(Object.keys(newErrors).length > 0) {
             setErrors(newErrors)
         } else {
-            fetch(`/user/update-client/${user.id}`, {
+            fetch(`/user/update-admin/${admin.id}`, {
                 method: "PUT",
-                body: JSON.stringify(updatedClient),
+                body: JSON.stringify(updatedAdmin),
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -65,25 +63,25 @@ const EditClientAccountInfo = ({user, setUser}) => {
             <Form>
                 <Form.Group>
                     <Form.Label>First name</Form.Label>
-                    <Form.Control isInvalid={errors.firstName} id={"firstName"} value={updatedClient.firstName || ""} onChange={onChange}/>
+                    <Form.Control isInvalid={errors.firstName} id={"firstName"} value={updatedAdmin.firstName || ""} onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.firstName}</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Last name</Form.Label>
-                    <Form.Control isInvalid={errors.lastName} id={"lastName"} value={updatedClient.lastName || ""} onChange={onChange}/>
+                    <Form.Control isInvalid={errors.lastName} id={"lastName"} value={updatedAdmin.lastName || ""} onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.lastName}</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control isInvalid={errors.email} id={"email"} value={updatedClient.email || ""} type="email" onChange={onChange}/>
+                    <Form.Control isInvalid={errors.email} id={"email"} value={updatedAdmin.email || ""} type="email" onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Phone number</Form.Label>
-                    <Form.Control isInvalid={errors.phoneNumber} id={"phoneNumber"} value={updatedClient.phoneNumber || ""} type="email" onChange={onChange}/>
+                    <Form.Control isInvalid={errors.phoneNumber} id={"phoneNumber"} value={updatedAdmin.phoneNumber || ""} type="email" onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
                 </Form.Group>
-                <Button variant="success" onClick={updateClient}>Save client</Button>
+                <Button variant="success" onClick={updateAdmin}>Save admin</Button>
                 {
                     updated? <h3 style={{color:"green"}}>Details updated successfully!</h3>: null
                 }
@@ -92,5 +90,4 @@ const EditClientAccountInfo = ({user, setUser}) => {
     )
 }
 
-
-export default EditClientAccountInfo
+export default EditAdminInfo

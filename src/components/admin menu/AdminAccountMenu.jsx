@@ -9,11 +9,14 @@ import AdminCheckOrders from "./AdminCheckOrders"
 import AdminCheckUsers from "./AdminCheckUsers"
 import ManageRestaurants from "./ManageRestaurants"
 import ManageDeliveryUsers from "./ManageDeliveryUsers"
+import EditAdminInfo from "./EditAdminInfo"
+import { Fragment } from "react"
+import AdminNavbar from "./AdminNavbar"
 
 
 const AdminAccountMenu = () => {
 
-    const {user} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
 
     const listItems = ["account info", "add restaurant", "restaurants", "add delivery user", "delivery users", 
                         "check registered users", "check orders total count"]
@@ -21,6 +24,7 @@ const AdminAccountMenu = () => {
     const [listItemActive, setListItemActive] = useState("")
     const [options] = useState({
         accountInfo: false,
+        editInfo:false,
         addRestaurant: false,
         restaurants: false,
         addDeliveryUser: false,
@@ -38,30 +42,16 @@ const AdminAccountMenu = () => {
         activeListItem = activeListItem.replaceAll("-", " ")
         setListItemActive(activeListItem)
 
-        switch(activeListItem){
-            case "account info":
-                updateFieldValue("accountInfo")
-                break;
-            case "add restaurant":
-                updateFieldValue("addRestaurant")
-                break
-            case "restaurants":
-                updateFieldValue("restaurants")
-                break
-            case "add delivery user":
-                updateFieldValue("addDeliveryUser")
-                break
-            case "delivery users":
-                updateFieldValue("deliveryUsers")
-                break
-            case "check registered users":
-                updateFieldValue("checkRegisteredUsers")
-                break
-            case "check orders total count":
-                updateFieldValue("checkOrdersTotalCount")
-                break
-            default:
-                console.log("default")
+        const secondParam = window.location.pathname.substring(1).split("/")[2]
+
+        if(secondParam === "edit") updateFieldValue("editInfo")
+        else {
+            const activeListItemWords = activeListItem.split(" ")
+            for(let i = 1; i < activeListItemWords.length; i++) {
+                activeListItemWords[i] = activeListItemWords[i][0].toUpperCase() + activeListItemWords[i].substring(1)
+            }
+            const currentOption = activeListItemWords.join("")
+            updateFieldValue(currentOption)
         }
     }, [updateFieldValue])
 
@@ -70,31 +60,36 @@ const AdminAccountMenu = () => {
     }
 
     return(
-        <Container>
-            <Row>
-                <Col md={3}>
-                    <ListGroup variant="flush">
-                            {
-                                listItems.map((listItem, i) => <ListGroup.Item key={i} active={listItems[i] === listItemActive} 
-                                                                            action href={"/admin-account/"+ buildListItem(listItem)}>
-                                    {listItem.charAt(0).toUpperCase() + listItem.slice(1)}
-                                </ListGroup.Item>)
-                            }
-                    </ListGroup>
-                </Col>
-                <Col md={9}>
-                    {
-                        options.accountInfo? <AdminAccountInfo admin={user}/>:
-                        options.addDeliveryUser? <AddDeliveryUser/>:
-                        options.addRestaurant? <AddRestaurant/>:
-                        options.restaurants? <ManageRestaurants/>:
-                        options.checkOrdersTotalCount? <AdminCheckOrders/>:
-                        options.checkRegisteredUsers? <AdminCheckUsers/>:
-                        options.deliveryUsers? <ManageDeliveryUsers/>: null
-                    }
-                </Col>
-            </Row>
-        </Container>
+        <Fragment>
+            <AdminNavbar/> <br/>
+            <Container>
+                <Row>
+                    <Col md={3}>
+                        <ListGroup variant="flush">
+                                {
+                                    listItems.map((listItem, i) => <ListGroup.Item key={i} active={listItems[i] === listItemActive} 
+                                                                                action href={"/admin-account/"+ buildListItem(listItem)}>
+                                        {listItem.charAt(0).toUpperCase() + listItem.slice(1)}
+                                    </ListGroup.Item>)
+                                }
+                        </ListGroup>
+                    </Col>
+                    <Col md={9}>
+                        {
+                            options.accountInfo? <AdminAccountInfo admin={user}/>:
+                            options.addDeliveryUser? <AddDeliveryUser/>:
+                            options.addRestaurant? <AddRestaurant/>:
+                            options.restaurants? <ManageRestaurants/>:
+                            options.checkOrdersTotalCount? <AdminCheckOrders/>:
+                            options.checkRegisteredUsers? <AdminCheckUsers/>:
+                            options.editInfo? <EditAdminInfo admin={user} setUser={setUser}/>:
+                            options.deliveryUsers? <ManageDeliveryUsers/>: null
+                        }
+                    </Col>
+                </Row>
+            </Container>
+        </Fragment>
+        
     )
 }
 
