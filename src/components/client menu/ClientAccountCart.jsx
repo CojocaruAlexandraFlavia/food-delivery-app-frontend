@@ -7,7 +7,7 @@ const ClientAccountCart = () => {
     const {user} = useContext(UserContext)
     return(
         <Container>
-            <h3>{user}<br/>
+            <h3>{user.name}<br/>
             
             </h3>
         </Container>
