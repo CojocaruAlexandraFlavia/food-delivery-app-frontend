@@ -15,6 +15,7 @@ import UpdateRestaurant from './components/admin menu/UpdateRestaurant';
 import AddReview from './components/AddReview';
 import Order from './components/Order';
 import ClientAccountInfoMenu from './components/client menu/ClientAccountInfoMenu';
+import ClientAccountCart from './components/client menu/ClientAccountCart';
 import AdminAccountMenu from './components/admin menu/AdminAccountMenu';
 import RestaurantPage from './components/RestaurantPage';
 
@@ -56,7 +57,7 @@ function App() {
                     <Route path='/add-restaurant' element={<AddRestaurant/>}/>
                     <Route path='/update-restaurant/:id' element={<UpdateRestaurant/>}/>
                     <Route path='/add-review' element={<AddReview/>}/>
-                    <Route path='/order/:id' element={<Order/>}/>
+                    <Route path='/order/:idParam' element={<Order/>}/>
                     
                     {/* Client account menu */}
                     <Route path='/client-account/saved-addresses' element={<ClientAccountInfoMenu/>}/>
@@ -67,6 +68,7 @@ function App() {
                     <Route path='/client-account/reviews' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/favorite-products' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/notifications' element={<ClientAccountInfoMenu/>}/>
+                    <Route path='/client-account/cart' element={<ClientAccountCart/>}/>
 
                     {/* Admin account menu */}
                     <Route path='/admin-account/account-info' element={<AdminAccountMenu/>}/>

@@ -1,8 +1,10 @@
 import React from "react";
 import { useEffect, useState, Fragment } from "react";
-import { Container, Table } from "react-bootstrap"
+import { Container} from "react-bootstrap"
 import { useParams } from "react-router"
 import LoadingSpinner from "./util/LoadingSpinner"
+import ProductsPage from "./ProductsPage"
+
 
 const RestaurantPage = ({restaurantId}) => {
 
@@ -15,18 +17,16 @@ const RestaurantPage = ({restaurantId}) => {
 
     useEffect(() => {
 
-      const controller = new AbortController()
-      const signal = controller.signal
+    
 
     fetch(`/restaurant/get-by-id/${id}`, {
-      signal: signal
+      
     }).then(response => response.json()).then(response => {
         setRestaurant(response)
         setLoading(false)
     })
 
     return () => {
-        controller.abort()
     }
 }, [id])
 
@@ -35,27 +35,13 @@ return(
       {
           loading? <LoadingSpinner/> : 
           <Fragment>
-              <h2>Restaurant: {restaurant.name}</h2>
-              <h2>Rating: {restaurant.rating}</h2>
-              <Table responsive bordered hover>
-                  <thead>
-                      <tr>
-                          <th>Product</th>
-                          <th>Ingredients</th>
-                         
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {
-                          restaurant.products.map((restaurantProduct, i) => <tr key={i}>
-                              <th>{restaurantProduct.name}</th>
-                              <th>{restaurantProduct.ingredients}</th>
-                              
-                          </tr>)
-                      }
-                  
-                  </tbody>
-              </Table>
+          
+          <img src='src/images/restaurants/desert.jpg' alt ="img" />
+              <h2>Restaurant {restaurant.name}</h2>
+              <h2>Rating {restaurant.rating}</h2>
+
+              <ProductsPage products={restaurant.products}/>
+              
              
             
       </Fragment>
