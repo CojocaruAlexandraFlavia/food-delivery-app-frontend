@@ -19,6 +19,7 @@ import ClientAccountCart from './components/client menu/ClientAccountCart';
 import AdminAccountMenu from './components/admin menu/AdminAccountMenu';
 import RestaurantPage from './components/RestaurantPage';
 
+import DeliveryUserAccountMenu from './components/delivery user menu/DeliveryUserAccountMenu';
 
 function App() {
 
@@ -79,8 +80,14 @@ function App() {
                     <Route path='/admin-account/check-registered-users' element={<AdminAccountMenu/>}/>
                     <Route path='/admin-account/check-orders-total-count' element={<AdminAccountMenu/>}/>
 
-        
-                    </Routes>
+                    {/* Deliver account menu */}
+                    <Route path='/deliver-account/account-info' element={<DeliveryUserAccountMenu/>}/>
+                    <Route path='/deliver-account/new-orders' element={<DeliveryUserAccountMenu/>}/>
+                    <Route path='/deliver-account/current-order' element={<DeliveryUserAccountMenu/>}/>
+                    <Route path='/deliver-account/delivered-orders' element={<DeliveryUserAccountMenu/>}/>
+                    <Route path='/deliver-account/delivered-orders/:id' element={<DeliveryUserAccountMenu/>}/>
+
+                </Routes>
             </BrowserRouter>
         </UserContext.Provider>
     );

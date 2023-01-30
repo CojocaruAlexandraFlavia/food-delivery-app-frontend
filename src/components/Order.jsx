@@ -1,5 +1,4 @@
-import { Fragment, useEffect } from "react"
-import { useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { Col, Container, Row, Table } from "react-bootstrap"
 import { useParams } from "react-router"
 import LoadingSpinner from "./util/LoadingSpinner"
@@ -7,9 +6,9 @@ import LoadingSpinner from "./util/LoadingSpinner"
 const Order = ({orderId}) => {
 
     const {idParam} = useParams()
+
     let id = idParam !== undefined ? idParam : orderId
    
-
     const [order, setOrder] = useState({})
     const [deliveryUser, setDeliveryUser] = useState({})
     const [loading, setLoading] = useState(true)
@@ -19,15 +18,19 @@ const Order = ({orderId}) => {
         const controller = new AbortController()
         const signal = controller.signal
 
-        fetch(`/order/get-by-id/${id}`, {
-            signal: signal
-        }).then(response => response.json()).then(response => {
-            setOrder(response)
-            setLoading(false)
-            fetch(`/order/delivery-user/${response.deliveryUserId}`, {
+        if(id !== undefined) {
+            fetch(`/order/get-by-id/${id}`, {
                 signal: signal
-            }).then(r => r.json()).then(r => setDeliveryUser(r))
-        })
+            }).then(response => response.json()).then(response => {
+                setOrder(response)
+                setLoading(false)
+                if(response.deliveryUserId !== undefined) {
+                    fetch(`/order/delivery-user/${response.deliveryUserId}`, {
+                        signal: signal
+                    }).then(r => r.json()).then(r => setDeliveryUser(r))
+                }
+            })
+        }
 
         return () => {
             controller.abort()
