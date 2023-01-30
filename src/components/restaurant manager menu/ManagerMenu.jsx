@@ -1,45 +1,41 @@
-import { useEffect, useCallback, useContext } from "react"
-import { useState } from "react"
-import { Fragment } from "react"
-import { Col, Container, Row, ListGroup } from "react-bootstrap"
+import { useContext, useCallback, useEffect, useState, Fragment } from "react"
+import { Container, Row, Col, ListGroup } from "react-bootstrap"
 import UserContext from "../context/UserContext"
-import Order from "../Order"
-import DeliverAccountInfo from "./DeliverAccountInfo"
-import DeliverCurrentOrder from "./DeliverCurrentOrder"
-import DeliveredOrders from "./DeliveredOrders"
-import DeliverNavbar from "./DeliverNavbar"
-import NewReceivedOrders from "./NewReceivedOrders"
+import ManagerAccountInfo from "./ManagerAccountInfo"
+import ManagerNavbar from "./ManagerNavbar"
+import ManagerOwnedRestaurants from "./ManagerOwnedRestaurants"
+import OwnedRestaurantReviews from "./OwnedRestaurantReviews"
 
 
-const DeliveryUserAccountMenu = () => {
+const ManagerMenu = () => {
 
-    const listItems = ["account info", "new orders", "current order", "delivered orders"]
-    const [listItemActive, setListItemActive] = useState("")
-    const [options] = useState({
-        accountInfo:false,
-        newOrders:false,
-        currentOrder: false,
-        deliveredOrders: false,
-        seeOrder: false
-    })
-    const [orderId, setOrderId] = useState(0)
+    const listItems = ["account info", "owned restaurants", "reviews"]
 
     const {user} = useContext(UserContext)
+
+    const [options] = useState({
+        accountInfo: false,
+        ownedRestaurants: false,
+        seeRestaurant: false, 
+        reviews:false
+    })
+    const [listItemActive, setListItemActive] = useState("")
+    const [restaurantId, setRestaurantId] = useState(0)
 
     const updateFieldValue = useCallback((key) => {
         options[key] = true
     }, [options])
 
-
     useEffect(() => {
+
         let activeListItem = window.location.pathname.substring(1).split("/")[1]
         activeListItem = activeListItem.replaceAll("-", " ")
         setListItemActive(activeListItem)
 
         const secondParam = window.location.pathname.substring(1).split("/")[2]
-        if(activeListItem === "delivered orders" && /^\d+$/.test(secondParam)) {
-            updateFieldValue("seeOrder")
-            setOrderId(secondParam)
+        if(activeListItem === "owned restaurants" && /^\d+$/.test(secondParam)) {
+            updateFieldValue("seeRestaurant")
+            setRestaurantId(secondParam)
         } else {
             const activeListItemWords = activeListItem.split(" ")
             for(let i = 1; i < activeListItemWords.length; i++) {
@@ -57,14 +53,14 @@ const DeliveryUserAccountMenu = () => {
 
     return(
         <Fragment>
-            <DeliverNavbar/> <br/>
+            <ManagerNavbar/> <br/>
             <Container>
                 <Row>
                     <Col md={3}>
                         <ListGroup variant="flush">
                                 {
                                     listItems.map((listItem, i) => <ListGroup.Item key={i} active={listItems[i] === listItemActive} 
-                                                                                action href={"/deliver-account/"+ buildListItem(listItem)}>
+                                                                                action href={"/manager-account/"+ buildListItem(listItem)}>
                                         {listItem.charAt(0).toUpperCase() + listItem.slice(1)}
                                     </ListGroup.Item>)
                                 }
@@ -72,11 +68,10 @@ const DeliveryUserAccountMenu = () => {
                     </Col>
                     <Col md={9}>
                         {
-                            options.accountInfo? <DeliverAccountInfo deliver={user}/>:
-                            options.deliveredOrders? <DeliveredOrders orders={user.orders}/>:
-                            options.currentOrder? <DeliverCurrentOrder deliver={user}/>:
-                            options.newOrders? <NewReceivedOrders/>:
-                            options.seeOrder? <Order orderId={orderId}/>: null
+                            options.accountInfo? <ManagerAccountInfo manager={user}/>:
+                            options.ownedRestaurants? <ManagerOwnedRestaurants restaurants={user.ownedRestaurants}/>:
+                            // options.seeRestaurant? <Restaurant restaurantId={restaurantId}/>:
+                            options.reviews? <OwnedRestaurantReviews restaurants={user.ownedRestaurants}/>: null
                         }
                     </Col>
                 </Row>
@@ -86,4 +81,4 @@ const DeliveryUserAccountMenu = () => {
 
 }
 
-export default DeliveryUserAccountMenu
+export default ManagerMenu
