@@ -15,9 +15,10 @@ import UpdateRestaurant from './components/admin menu/UpdateRestaurant';
 import AddReview from './components/AddReview';
 import Order from './components/Order';
 import ClientAccountInfoMenu from './components/client menu/ClientAccountInfoMenu';
-import ClientAccountCart from './components/client menu/ClientAccountCart';
+import CartProducts from './components/CartProducts';
 import AdminAccountMenu from './components/admin menu/AdminAccountMenu';
 import RestaurantPage from './components/RestaurantPage';
+
 
 import DeliveryUserAccountMenu from './components/delivery user menu/DeliveryUserAccountMenu';
 import ManagerMenu from './components/restaurant manager menu/ManagerMenu';
@@ -69,7 +70,8 @@ function App() {
                     <Route path='/client-account/reviews' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/favorite-products' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/notifications' element={<ClientAccountInfoMenu/>}/>
-                    <Route path='/client-account/cart' element={<ClientAccountCart/>}/>
+                   
+                    <Route path='/client-account/view-cart/:idParam' element={<CartProducts/>}/>
 
                     {/* Admin account menu */}
                     <Route path='/admin-account/account-info' element={<AdminAccountMenu/>}/>
