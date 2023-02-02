@@ -3,36 +3,40 @@ import { useParams } from "react-router"
 import 'rsuite/dist/rsuite.min.css';
 import { Panel } from 'rsuite';
 import { Button, Container, Modal, Form, Icon} from "react-bootstrap"
-import { COLOR } from "rsuite/esm/utils/constants";
+import UserContext from "../components/context/UserContext"
 
+const CartProducts = () => {
 
-const CartProducts = ({clientId}) => {
-
+    const {user} = useContext(UserContext)
     
     const[products, setProducts] = useState([])
 
-    const {idParam} = useParams()
-    let id = idParam !== undefined ? idParam : clientId
-
-    const jsonData = {
-        "orderId": "",
-        "productId":""
+      const decreaseProductQuantity = (id) => { 
+        const requestBody ={
+            "clientId":user.id,
+            "productId":id
+        }
+        fetch( `/order/cart/decrease-quantity`, {
+            method: "POST",
+            body:JSON.stringify(requestBody),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
       }
-
-
-
 
     useEffect(() => {
 
-      fetch(`/order/cart/${id}`, {
+        if(user.id !== undefined){
+            fetch(`/order/cart/${user.id}`, {
       
-      }).then(response => response.json()).then(response => {
-          setProducts(response.products)
-      })
-  
-      return () => {
-      }
-  }, [id])
+            }).then(response => response.json()).then(response => {
+                setProducts(response.products)
+          
+            })
+        }
+   
+  }, [user.id])
     return(
 
         <Fragment>
@@ -60,7 +64,7 @@ const CartProducts = ({clientId}) => {
                     </table>
 
                     <br></br>
-                    <Button variant="secondary" negative className='quan-buttons'  style={{width:40, height:40, alignContent:"center"}}color="blue"> - </Button>
+                    <Button variant="secondary" onClick={() => decreaseProductQuantity(product.productDto.id)} negative className='quan-buttons'  style={{width:40, height:40, alignContent:"center"}}color="blue"> - </Button>
                 {
                 <input type="text" id="quantity"name="quantity" value={product.quantity} style={{width:40, alignContent:"center", paddingBottom:6}} />
                 }

@@ -71,7 +71,7 @@ function App() {
                     <Route path='/client-account/favorite-products' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/notifications' element={<ClientAccountInfoMenu/>}/>
                    
-                    <Route path='/client-account/view-cart/:idParam' element={<CartProducts/>}/>
+                    <Route path='/client-account/view-cart' element={<CartProducts/>}/>
 
                     {/* Admin account menu */}
                     <Route path='/admin-account/account-info' element={<AdminAccountMenu/>}/>
