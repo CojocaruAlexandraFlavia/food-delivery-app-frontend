@@ -116,6 +116,7 @@ const CartProducts = () => {
             </div>): null
             
             }
+            
             <br></br>
           
             <div style={{
@@ -127,7 +128,7 @@ const CartProducts = () => {
                
                     <tr> <h3>Total:</h3>
                         <td> 
-                        <h3> {deliveryTax + orderValue}</h3>
+                        <h3> {deliveryTax + orderValue} lei</h3>
                         </td>    
                     </tr>
                     <tr>Delivery tax: 
@@ -137,8 +138,11 @@ const CartProducts = () => {
                         <td style ={{paddingLeft:10}}> {orderValue.toPrecision(4)} lei</td>
                     </tr>
                     </table>
-                    <Button shaded className="delete-button" style={{width:120, height:40, alignContent:"center", backgroundColor:"#73BA9B", borderColor:"#73BA9B", float:"right", marginBottom:10}} >SEND</Button>
+                    <a href="/client-account/finish-order">
+                    <Button shaded className="finish-order-button"  style={{width:120, height:40, alignContent:"center", backgroundColor:"#73BA9B", borderColor:"#73BA9B", float:"right", marginBottom:10}} >SEND</Button>
               
+                    </a>
+                    
                     <br></br>
                     </Panel>
                 </div>

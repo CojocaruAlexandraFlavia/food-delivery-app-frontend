@@ -18,6 +18,7 @@ import ClientAccountInfoMenu from './components/client menu/ClientAccountInfoMen
 import CartProducts from './components/CartProducts';
 import AdminAccountMenu from './components/admin menu/AdminAccountMenu';
 import RestaurantPage from './components/RestaurantPage';
+import FinishOrderPage from './components/FinishOrderPage';
 
 
 import DeliveryUserAccountMenu from './components/delivery user menu/DeliveryUserAccountMenu';
@@ -72,6 +73,7 @@ function App() {
                     <Route path='/client-account/notifications' element={<ClientAccountInfoMenu/>}/>
                    
                     <Route path='/client-account/view-cart' element={<CartProducts/>}/>
+                    <Route path ='/client-account/finish-order' element ={<FinishOrderPage/>}/>
 
                     {/* Admin account menu */}
                     <Route path='/admin-account/account-info' element={<AdminAccountMenu/>}/>
