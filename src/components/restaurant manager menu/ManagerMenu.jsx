@@ -3,7 +3,7 @@ import { Container, Row, Col, ListGroup } from "react-bootstrap"
 import UserContext from "../context/UserContext"
 import ManagerAccountInfo from "./ManagerAccountInfo"
 import ManagerNavbar from "./ManagerNavbar"
-import ManagerOwnedRestaurants from "./ManagerOwnedRestaurants"
+import ManageRestaurants from "../admin menu/ManageRestaurants"
 import OwnedRestaurantReviews from "./OwnedRestaurantReviews"
 
 
@@ -57,7 +57,7 @@ const ManagerMenu = () => {
             <Container>
                 <Row>
                     <Col md={3}>
-                        <ListGroup variant="flush" style={{borderRadius:"10px", boxShadow:"1px 1px 4px 4px lightgrey"}}>
+                        <ListGroup variant="flush" style={{boxShadow:"1px 1px 4px 4px lightgrey"}}>
                                 {
                                     listItems.map((listItem, i) => <ListGroup.Item key={i} active={listItems[i] === listItemActive} 
                                                                                 action href={"/manager-account/"+ buildListItem(listItem)}>
@@ -69,7 +69,7 @@ const ManagerMenu = () => {
                     <Col md={9}>
                         {
                             options.accountInfo? <ManagerAccountInfo manager={user}/>:
-                            options.ownedRestaurants? <ManagerOwnedRestaurants restaurants={user.ownedRestaurants}/>:
+                            options.ownedRestaurants? <ManageRestaurants restaurants={user.ownedRestaurants}/>:
                             // options.seeRestaurant? <Restaurant restaurantId={restaurantId}/>:
                             options.reviews? <OwnedRestaurantReviews restaurants={user.ownedRestaurants}/>: null
                         }
