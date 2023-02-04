@@ -88,7 +88,7 @@ return(
               <Form.Label>Ingredients</Form.Label>
               <Form.Control value={product.ingredients} isInvalid={errors.ingredients} onChange={(e) => setProduct({...product, ingredients:e.target.value})}/>
               <Form.Control.Feedback type="invalid">{errors.ingredients}</Form.Control.Feedback>
-          </Form.Group>
+          </Form.Group> <br/>
 
           <Button variant="success" onClick={update}>Update details</Button>
           {

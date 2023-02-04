@@ -16,12 +16,13 @@
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
     "react-simple-star-rating": "^5.1.7",
+    "react-text-truncate": "^0.19.0",
     "reactstrap": "^9.1.5",
     "web-vitals": "^2.1.4"
   },
   "proxy": "http://localhost:8080",
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

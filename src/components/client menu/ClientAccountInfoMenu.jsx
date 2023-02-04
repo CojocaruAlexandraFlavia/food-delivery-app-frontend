@@ -65,7 +65,7 @@ const ClientAccountInfoMenu = () => {
             <Container>
                 <Row>
                     <Col md={3}>
-                        <ListGroup variant="flush">
+                        <ListGroup variant="flush" style={{borderRadius:"10px", boxShadow:"1px 1px 4px 4px lightgrey"}}>
                             {
                                 listItems.map((listItem, i) => <ListGroup.Item key={i} active={listItems[i] === listItemActive} 
                                                                             action href={"/client-account/"+ buildListItem(listItem)}>
@@ -77,7 +77,7 @@ const ClientAccountInfoMenu = () => {
                     <Col md={9}>
                         {
                             options.seeAccountInfo? <ClientAccountInfo user={user}/> :
-                            options.seeAddresses? <ClientSavedAddresses addresses={user.addresses}/>:
+                            options.seeAddresses? <ClientSavedAddresses addresses={user.addresses} setUser={setUser} user={user}/>:
                             options.editInfo? <EditClientAccountInfo user={user} setUser={setUser}/>:
                             options.seeFavoriteProducts? <ClientFavoriteProducts products={user.favoriteProducts}/>:
                             options.seeOrder? <Order orderId={orderId}/>:
