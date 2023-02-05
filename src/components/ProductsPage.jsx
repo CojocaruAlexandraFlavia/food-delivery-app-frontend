@@ -4,6 +4,7 @@ import { useParams } from "react-router"
 import UpdateProduct from "./UpdateProduct"
 import UserContext from "../components/context/UserContext"
 
+
 const ProductsPage = ({restaurantId}) => {
 
     const {idParam} = useParams()
@@ -34,7 +35,7 @@ const ProductsPage = ({restaurantId}) => {
       clientUserId: 0
     })
     const [productAddedToCart, setProductAddedToCart] = useState(false)
-    
+    const [addCartModal, setAddCartModal] = useState(false)
 
     const getAllProducts = useCallback(() => {
         fetch(`/product/get-all-by-restaurantId/${restId}`)
@@ -139,6 +140,13 @@ const ProductsPage = ({restaurantId}) => {
       setSaveModal(true)
     }
 
+    const closeAddToCartModal = () => {
+      setAddCartModal(false)
+    }
+
+    const openAddToCartModal = () => {
+      setAddCartModal(true)
+    }
 
     const findFormErrors = () => {
       const {name, price, discount, ingredients, categoryId} = product
@@ -221,7 +229,7 @@ const ProductsPage = ({restaurantId}) => {
                       <Button onClick={() => editProductId(product.id)}>Edit</Button>
                       <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>
                       <Button variant="warning" onClick={() => addToFavorite(product.id)}>Add to Favorite List</Button>
-                      <Button variant="info" onClick={() => addProductToCart(product.id)}>Add to cart</Button>
+                      <Button variant="info" onClick={() => {addProductToCart(product.id); openAddToCartModal()}}>Add to cart</Button>
                   </div> <br/>
                   
                   <Modal show={editModal} onHide={closeModal}>
@@ -240,8 +248,14 @@ const ProductsPage = ({restaurantId}) => {
             {
                 productAddedFavoriteList? <h3 style={{color:"green"}}>Product added successfully to Favorite List</h3> : null
             }
+
             {
-                productAddedToCart? <h3 style={{color:"green"}}>Product added successfully to Cart</h3> : null
+              <Modal show={productAddedToCart} onHide={closeAddToCartModal}>
+                <Modal.Header closeButton> </Modal.Header>
+                <Modal.Body>
+                  <h3 style={{color:"green"}}>Product added successfully to to Cart</h3>
+                </Modal.Body>
+              </Modal>
             }
             <br/>
 
