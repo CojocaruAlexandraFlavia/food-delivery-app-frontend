@@ -36,6 +36,7 @@ const ClientNavbar = () => {
                             <Nav.Link href="/client-account/orders">Orders</Nav.Link>
                             <Nav.Link href="/client-account/reviews">Reviews</Nav.Link>
                             <Nav.Link href="/client-account/favorite-products">Favorite products</Nav.Link>
+                            <Nav.Link href="/client-account/saved-addresses">Saved addresses</Nav.Link>
                             <Nav.Link href="/client-account/notifications">Notifications ({unseenNotifications})</Nav.Link>
                         </Nav>
                         <Navbar.Collapse className="justify-content-end">

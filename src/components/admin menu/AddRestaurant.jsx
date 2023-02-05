@@ -132,9 +132,12 @@ const AddRestaurant = () => {
         }
     }
 
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+
     return(
-        <Container>
-            <Form>
+        <Container style={boxStyle}>
+            <h2 style={{textAlign:"center"}}>Add restaurant</h2> <br/>
+            <Form style={boxStyle}>
                 <Form.Group>
                     <Form.Label>Name</Form.Label>
                     <Form.Control id={"name"} value={restaurant.name} isInvalid={errors.name} onChange={onChange}/>
@@ -149,7 +152,7 @@ const AddRestaurant = () => {
                     <Form.Label>Delivery tax</Form.Label>
                     <Form.Control type="number" id={"deliveryTax"} value={restaurant.deliveryTax} isInvalid={errors.deliveryTax} onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.deliveryTax}</Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> <br/>
                 <Form.Group>
                     <Form.Label>Manager</Form.Label>
                     <Row>
@@ -166,13 +169,12 @@ const AddRestaurant = () => {
                         </Col>
                         <Col md={6}>
                             <Form.Check checked={addNewManagerChecked} onChange={(e) => setAddNewManagerChecked(e.target.checked)} label={"Add new restaurant manager"}/>
-                            {/* <Form.Label>Add new restaurant manager</Form.Label> */}
                             {
                                 addNewManagerChecked?  <AddRestaurantManager setRestaurantManagerId={setRestaurantManagerId}/> : null
                             }
                         </Col>                    
                     </Row>
-                </Form.Group>
+                </Form.Group> <br/>
                 <Form.Group>
                     <Form.Label>Locations</Form.Label>
                     {
@@ -189,7 +191,7 @@ const AddRestaurant = () => {
                         <Form.Label>Address</Form.Label>
                         <Form.Control value={location.address} isInvalid={locationErrors.address} onChange={(e) => setLocation({...location, address: e.target.value})}/>
                         <Form.Control.Feedback type={"invalid"}>{locationErrors.address}</Form.Control.Feedback>
-                    </Form.Group>
+                    </Form.Group> <br/>
                     <Button variant="success" onClick={addLocation}>Add location</Button>
                     {
                        locationAdded ? <h3 style={{color:"green"}}>Location added successfully</h3>:null
@@ -197,13 +199,13 @@ const AddRestaurant = () => {
                     {
                         errors.locations ? <h3 style={{color:"red"}}>Locations are required!</h3>: null
                     }
-                </Form.Group>
-                <Button variant="success" onClick={saveRestaurant}>Add restaurant</Button>
-                <br/><br/>
+                </Form.Group> <br/> <br/>
+                <div style={{display:"flex", justifyContent:"center"}}>
+                    <Button variant="success" onClick={saveRestaurant}>Add restaurant</Button>
+                </div> <br/><br/>
                 {
                     restaurantAdded? <h3 style={{color:"green"}}>Restaurant added successfully</h3> : null
-                }
-                
+                }   
             </Form>
         </Container>
     )

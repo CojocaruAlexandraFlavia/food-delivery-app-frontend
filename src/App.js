@@ -15,11 +15,17 @@ import UpdateRestaurant from './components/admin menu/UpdateRestaurant';
 import AddReview from './components/AddReview';
 import Order from './components/Order';
 import ClientAccountInfoMenu from './components/client menu/ClientAccountInfoMenu';
+import CartProducts from './components/CartProducts';
 import AdminAccountMenu from './components/admin menu/AdminAccountMenu';
+import RestaurantPage from './components/RestaurantPage';
+import FinishOrderPage from './components/FinishOrderPage';
+
+
 import DeliveryUserAccountMenu from './components/delivery user menu/DeliveryUserAccountMenu';
 import ManagerMenu from './components/restaurant manager menu/ManagerMenu';
 
 function App() {
+
 
     const [user, setUser] = useState({})
 
@@ -40,6 +46,9 @@ function App() {
         <UserContext.Provider value={{user, setUser}}>
             <BrowserRouter>
                 <Routes>
+                  
+                    <Route path='/restaurant/:idParam' element={<RestaurantPage/>}/>
+                
                     <Route path='/' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/home-client' element={<ClientHomePage/>}/>
@@ -62,7 +71,10 @@ function App() {
                     <Route path='/client-account/reviews' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/favorite-products' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/notifications' element={<ClientAccountInfoMenu/>}/>
-
+    
+                    <Route path='/client-account/view-cart' element={<CartProducts/>}/>
+                    <Route path ='/client-account/finish-order' element ={<FinishOrderPage/>}/>
+                   
                     {/* Admin account menu */}
                     <Route path='/admin-account/account-info' element={<AdminAccountMenu/>}/>
                     <Route path='/admin-account/add-delivery-user' element={<AdminAccountMenu/>}/>
@@ -91,5 +103,4 @@ function App() {
         </UserContext.Provider>
     );
 }
-
 export default App;

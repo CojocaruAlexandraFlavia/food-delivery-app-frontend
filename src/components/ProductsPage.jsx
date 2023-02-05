@@ -1,13 +1,14 @@
-import { Fragment, useState, useCallback, useEffect } from "react"
+import { Fragment, useState, useCallback, useEffect, useContext } from "react"
 import { Button, Container, Modal, Form } from "react-bootstrap"
 import { useParams } from "react-router"
-import { useContext } from "react"
 import UpdateProduct from "./UpdateProduct"
-import UserContext from "./context/UserContext"
+//import UserContext from "./context/UserContext"
+import UserContext from "../components/context/UserContext"
 
 const ProductsPage = ({restaurantId}) => {
 
     const {idParam} = useParams()
+    const {user} = useContext(UserContext)
     let restId = idParam !== undefined ? idParam : restaurantId
 
     const [allProducts, setAllProducts] = useState([])
@@ -28,7 +29,6 @@ const ProductsPage = ({restaurantId}) => {
       categoryId:""
     })
 
-    const {user} = useContext(UserContext)
     const [productAddedFavoriteList, setProductAddedFavoriteList] = useState(false)
     const [productFavorite, setProductFavorite] = useState({
       productId: 0,
@@ -94,8 +94,25 @@ const ProductsPage = ({restaurantId}) => {
               setProductAddedFavoriteList(false)
             }, 5000)
         }
+      })
+    }
+
+  const addProductToCart = (id) => { 
+    if(product.availability === true){
+      const requestBody ={
+        "clientId":user.id,
+        "productId":id,
+        "quantity":1
+      }
+    fetch( `/order/add-products`, {
+        method: "PUT",
+        body:JSON.stringify(requestBody),
+        headers: {
+            "Content-Type": "application/json"
+        }
     })
-}
+    } 
+  }
 
     const closeModal = () => {
         setEditModal(false)
@@ -184,17 +201,20 @@ const ProductsPage = ({restaurantId}) => {
             {
               allProducts.map((product, i) => <Fragment key={i}>
                   <div style={boxStyle}>
-                      <h4>{product.name}</h4>
-                      <h5>Price: {product.price}</h5>
-                      <h5>Discount: {product.discount}</h5>
-                      <h5>Ingredients: {product.ingredients}</h5>
-                      <h5>Availability: {product.availability.toString()}</h5>
+                      <h5>{product.name}</h5>
+                      <h6>Price: {product.price}</h6>
+                      <h6>Discount: {product.discount}</h6>
+                      <h6>Ingredients: {product.ingredients}</h6>
+                      <h6>Availability: {product.availability.toString()}</h6>
+                      
+                      <br/>
             
                       <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
                       <Button onClick={() => editProductId(product.id)}>Edit</Button>
                       <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>
                       <Button variant="warning" onClick={() => addToFavorite(product.id)}>Add to Favorite List</Button>
                       
+                      <Button variant="info" onClick={() => addProductToCart(product.id)}>Add to cart</Button>
                   </div> <br/>
                   
                   <Modal show={editModal} onHide={closeModal}>

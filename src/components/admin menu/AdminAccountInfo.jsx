@@ -3,17 +3,19 @@ import { Container } from "react-bootstrap"
 
 const AdminAccountInfo = ({admin}) => {
     
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
 
     return(
-        <Container>
-            {
-                admin !== undefined ? <h3>First name: {admin.firstName} <br/>
+        <Container style={boxStyle}>
+            <h3  style={{textAlign: "center"}}>Account info</h3> <br/>
+            <div style={boxStyle}>
+                <h5>First name: {admin.firstName} <br/>
                     Last name: {admin.lastName} <br/>
                     Email: {admin.email} <br/>
                     Phone number: {admin.phoneNumber}
-                </h3>: null
-            }
-            <a href={"/admin-account/account-info/edit"}>Edit info</a>
+                </h5>
+                <a href="/admin-account/account-info/edit">Edit details</a>
+            </div> 
     </Container>
     )
 }
