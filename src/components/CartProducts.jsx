@@ -74,6 +74,7 @@ const CartProducts = () => {
    
   }, [user.id])
     return(
+        
         <Fragment>
             {
                 products !== undefined ? products.map((product, i) => <div key={i}>
@@ -94,8 +95,8 @@ const CartProducts = () => {
                         <td style ={{color:"#d41919"}}>{product.productDto.discount}%</td>
                     </tr>
                     <tr>Price: 
-                        <td>{(product.productDto.price -
-                        (product.productDto.discount / 100 * product.productDto.price)) * product.quantity} lei</td>
+                        <td>{((product.productDto.price -
+                        (product.productDto.discount / 100 * product.productDto.price)) * product.quantity).toPrecision(4)} lei</td>
                     </tr>
                     </table>
 
@@ -113,9 +114,7 @@ const CartProducts = () => {
                 </Panel>
                 </div>
                 
-            </div>): null
-            
-            }
+           
             
             <br></br>
           
@@ -128,7 +127,7 @@ const CartProducts = () => {
                
                     <tr> <h3>Total:</h3>
                         <td> 
-                        <h3> {deliveryTax + orderValue} lei</h3>
+                        <h3> {(deliveryTax + orderValue).toPrecision(4)} lei</h3>
                         </td>    
                     </tr>
                     <tr>Delivery tax: 
@@ -139,7 +138,7 @@ const CartProducts = () => {
                     </tr>
                     </table>
                     <a href="/client-account/finish-order">
-                    <Button shaded className="finish-order-button"  style={{width:120, height:40, alignContent:"center", backgroundColor:"#73BA9B", borderColor:"#73BA9B", float:"right", marginBottom:10}} >SEND</Button>
+                    <Button shaded className="finish-order-button"  style={{width:140, height:40, alignContent:"center", backgroundColor:"#73BA9B", borderColor:"#73BA9B", fontSize:14, float:"right", fontWeight:"bold", marginBottom:10}} >FINISH ORDER</Button>
               
                     </a>
                     
@@ -148,9 +147,34 @@ const CartProducts = () => {
                 </div>
                 <br></br>
                 <br></br>
+                </div>): null
             
-          
+        }
+          {
+            products === undefined &&
+            <div>
+                <p>Your cart is empty</p>
+            </div>
+          }
+          {
+            products.length <= 0 &&
+            
+            <div style={{
+                      display: "flex", justifyContent: "center", alignItems: "center", marginTop:80
+                }}>
+                <br></br>
+                <br></br>
+                    <Panel shaded fontSize="30px">
+
+                    <div>
+                        <h3> Your cart is empty</h3>
+                    </div>
+                   </Panel>
+                </div>
+            
+          }
         </Fragment>
+        
     )
 
 }

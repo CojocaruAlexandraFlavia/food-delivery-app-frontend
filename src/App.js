@@ -71,10 +71,10 @@ function App() {
                     <Route path='/client-account/reviews' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/favorite-products' element={<ClientAccountInfoMenu/>}/>
                     <Route path='/client-account/notifications' element={<ClientAccountInfoMenu/>}/>
-                   
+    
                     <Route path='/client-account/view-cart' element={<CartProducts/>}/>
                     <Route path ='/client-account/finish-order' element ={<FinishOrderPage/>}/>
-
+                   
                     {/* Admin account menu */}
                     <Route path='/admin-account/account-info' element={<AdminAccountMenu/>}/>
                     <Route path='/admin-account/add-delivery-user' element={<AdminAccountMenu/>}/>
