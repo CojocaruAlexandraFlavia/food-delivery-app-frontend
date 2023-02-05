@@ -25,7 +25,7 @@
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:8088",
+  "proxy": "http://localhost:8080",
   "scripts": {
     "build": "react-scripts build",
     "start": "react-scripts start",

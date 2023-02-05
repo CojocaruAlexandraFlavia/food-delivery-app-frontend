@@ -2,7 +2,6 @@ import { Fragment, useState, useCallback, useEffect, useContext } from "react"
 import { Button, Container, Modal, Form } from "react-bootstrap"
 import { useParams } from "react-router"
 import UpdateProduct from "./UpdateProduct"
-//import UserContext from "./context/UserContext"
 import UserContext from "../components/context/UserContext"
 
 const ProductsPage = ({restaurantId}) => {
@@ -34,6 +33,7 @@ const ProductsPage = ({restaurantId}) => {
       productId: 0,
       clientUserId: 0
     })
+    const [productAddedToCart, setProductAddedToCart] = useState(false)
     
 
     const getAllProducts = useCallback(() => {
@@ -110,6 +110,14 @@ const ProductsPage = ({restaurantId}) => {
         headers: {
             "Content-Type": "application/json"
         }
+    }).then(response => {
+      if(response.status === 200) {
+        setProductAddedToCart(true)
+          setErrors({})
+          setTimeout(() => {
+            setProductAddedToCart(false)
+          }, 5000)
+      }
     })
     } 
   }
@@ -213,7 +221,6 @@ const ProductsPage = ({restaurantId}) => {
                       <Button onClick={() => editProductId(product.id)}>Edit</Button>
                       <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>
                       <Button variant="warning" onClick={() => addToFavorite(product.id)}>Add to Favorite List</Button>
-                      
                       <Button variant="info" onClick={() => addProductToCart(product.id)}>Add to cart</Button>
                   </div> <br/>
                   
@@ -230,10 +237,13 @@ const ProductsPage = ({restaurantId}) => {
             { 
               deleted? <h3>Deleted successfully</h3>: null 
             }       
-            <br/>
             {
                 productAddedFavoriteList? <h3 style={{color:"green"}}>Product added successfully to Favorite List</h3> : null
             }
+            {
+                productAddedToCart? <h3 style={{color:"green"}}>Product added successfully to Cart</h3> : null
+            }
+            <br/>
 
             <Button variant="success" onClick={saveOpenModal}>Add product</Button>
             <Modal show={saveModal} onHide={closeSaveModal}>
