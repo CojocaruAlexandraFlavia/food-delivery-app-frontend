@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react"
+import {useContext, useEffect, useState } from "react"
 import 'rsuite/dist/rsuite.min.css';
 import { Panel } from 'rsuite';
 import { Button} from "react-bootstrap"
@@ -131,18 +131,18 @@ const FinishOrderPage = () => {
     return(
         
         <Container>
-        <br></br>
+        <br/>
         <Form>
             <Form.Group>
                 <Row>
                     <Col md={4}>
                         <Form.Group >
             
-                            <br></br>
+                            <br/>
                         
                             <div style={{display: 'block', width: 400}}>
                                     
-                                <Panel shaded fontSize="30px">
+                                <Panel shaded={true} fontSize="30px">
                                 
                                     <h3 style={{alignContent:"center"}}>Order Summary</h3>
 
@@ -168,22 +168,22 @@ const FinishOrderPage = () => {
                                     </div>
                             ):null}
                             </div>
-                            <br></br>
+                            <br/>
                                 <table>
                                     <tr>Delivery tax: 
                                         <td style={{paddingLeft:10}}>{deliveryTax}  lei</td>
                                     </tr>
                                     <tr> Products price:
-                                        <td style ={{paddingLeft:10}}> {orderValue.toPrecision(4)} lei</td>
+                                        <td style ={{paddingLeft:10}}> {orderValue.toFixed(2)} lei</td>
                                     </tr>
                                     <tr> Payment method:
                                         <td style ={{paddingLeft:10}}> {paymentType}</td>
                                     </tr>
-                                    <br></br>
+                                    <br/>
 
                                     <tr> <h3>Total:</h3>
                                         <td> 
-                                        <h3> {deliveryTax + orderValue} lei</h3>
+                                        <h3> {(deliveryTax + orderValue).toFixed(2)} lei</h3>
                                         </td>    
                                     </tr>
                                     </table>
@@ -194,14 +194,14 @@ const FinishOrderPage = () => {
                                     <br></br>
                                     </Panel>
                                 </div>
-                                <br></br>
-                                <br></br>
+                                <br/>
+                                <br/>
             
           
                         </Form.Group>
                     </Col>
                     <Col md={4}>
-                        <br></br> <br></br>
+                        <br/> <br/>
                             <Form.Select id={"addressId"} onChange={onChange} isInvalid={errors.addressId}>
                                 <option value={0}>Select an address</option>
                                 {
@@ -214,7 +214,7 @@ const FinishOrderPage = () => {
                        
                         
                         <Form.Group>
-                        <br></br>
+                        <br/> <br/>
                             <Form.Label>Add address</Form.Label>
                         
                             <Form.Group>
@@ -232,7 +232,7 @@ const FinishOrderPage = () => {
                                 <Form.Control value={location.zipCode} isInvalid={locationErrors.zipCode} onChange={(e) => setLocation({...location, zipCode: e.target.value})}/>
                                 <Form.Control.Feedback type={"invalid"}>{locationErrors.zipCode}</Form.Control.Feedback>
                             </Form.Group>
-                            <br></br>
+                            <br/><br/>
                             
                             <Button onClick={addLocation} style={{width:120, height:40, alignContent:"center", backgroundColor:"#73BA9B", borderColor:"#73BA9B", float:"right", marginBottom:10}}>Add location</Button>
                             {
