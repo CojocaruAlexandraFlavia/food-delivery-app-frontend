@@ -194,10 +194,7 @@ const ProductsPage = ({restaurantId}) => {
                       <Button onClick={() => editProductId(product.id)}>Edit</Button>
                       <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>
                       <Button variant="warning" onClick={() => addToFavorite(product.id)}>Add to Favorite List</Button>
-                      <br/><br/>
-                      {
-                          productAddedFavoriteList? <h3 style={{color:"green"}}>Product added successfully to Favorite List</h3> : null
-                      }
+                      
                   </div> <br/>
                   
                   <Modal show={editModal} onHide={closeModal}>
@@ -213,6 +210,10 @@ const ProductsPage = ({restaurantId}) => {
             { 
               deleted? <h3>Deleted successfully</h3>: null 
             }       
+            <br/>
+            {
+                productAddedFavoriteList? <h3 style={{color:"green"}}>Product added successfully to Favorite List</h3> : null
+            }
 
             <Button variant="success" onClick={saveOpenModal}>Add product</Button>
             <Modal show={saveModal} onHide={closeSaveModal}>
