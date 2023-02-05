@@ -5,23 +5,27 @@ import { Rating } from 'react-simple-star-rating'
 
 const OwnedRestaurantReviews = ({restaurants}) => {
 
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
 
     return(
-        <Container>
+        <Container style={boxStyle}>
+            <h2 style={{textAlign:"center"}}>Owned restaurants reviews</h2> <br/>
              {
-                restaurants !== undefined? restaurants.map((restaurant, id) => <Fragment key={id}>
+                restaurants !== undefined? restaurants.map((restaurant, id) => <div key={id} style={boxStyle}>
                     <div>
-                        <h3>{restaurant.name}</h3>
-                        <h4>Reviews:</h4>
+                        <h4 style={{textAlign:"center"}}>{restaurant.name}</h4> <br/>
+                        {/* <h5>Reviews:</h5> */}
                         {
                             restaurant.reviews.map((review, index) => <Fragment key={index}>
-                                <Rating readonly initialValue={review.stars}/>
-                                <h5>Comment: {review.comment}</h5>
-                                <h5>Client: {review.clientFirstName} {review.clientLastName}</h5>
-                            </Fragment>)
+                                <div style={boxStyle}>
+                                    <Rating readonly initialValue={review.stars}/>
+                                    <h6>Comment: {review.comment}</h6>
+                                    <h6>Client: {review.clientFirstName} {review.clientLastName}</h6>
+                                </div> <br/>
+                            </Fragment> )
                         }
                     </div>
-                </Fragment>): null
+                </div>): null
             }
         </Container>
     )

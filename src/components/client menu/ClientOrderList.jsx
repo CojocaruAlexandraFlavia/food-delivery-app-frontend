@@ -3,9 +3,11 @@ import { Container, Table } from "react-bootstrap"
 
 const ClientOrderList = ({orders}) => {
 
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
 
     return(
-        <Container>
+        <Container style={boxStyle}>
+            <h3 style={{textAlign: "center"}}>Orders</h3> <br/>
             <Table responsive hover bordered>
                 <thead>
                     <tr>

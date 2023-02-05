@@ -59,8 +59,11 @@ const AddDeliveryUser = () => {
         }
     }
 
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+
     return(
-        <Container>
+        <Container style={boxStyle}>
+            <h2 style={{textAlign:"center"}}>Add delivery user</h2>
             <Form>
                 <Form.Group>
                     <Form.Label>First name</Form.Label>
@@ -76,7 +79,7 @@ const AddDeliveryUser = () => {
                     <Form.Label>Email</Form.Label>
                     <Form.Control isInvalid={errors.email} id={"email"} value={deliveryUser.email} type="email" onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> <br/>
                 <Button variant="success" onClick={saveDeliveryUser}>Save delivery user</Button>
                 <br/>
                 {

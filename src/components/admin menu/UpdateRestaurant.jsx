@@ -69,7 +69,7 @@ const UpdateRestaurant = ({restaurantId}) => {
                     <Form.Label>Phone number</Form.Label>
                     <Form.Control value={restaurant.phoneNumber} isInvalid={errors.phoneNumber} onChange={(e) => setRestaurant({...restaurant, phoneNumber:e.target.value})}/>
                     <Form.Control.Feedback type="invalid">{errors.phoneNumber}</Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> <br/>
                 <Button variant="success" onClick={update}>Update details</Button>
                 {
                     updated? <h3 style={{color:"green"}}>Details updated successfully!</h3>: null
@@ -77,7 +77,6 @@ const UpdateRestaurant = ({restaurantId}) => {
             </Form>
         </Container>
     )
-
 }
 
 export default UpdateRestaurant

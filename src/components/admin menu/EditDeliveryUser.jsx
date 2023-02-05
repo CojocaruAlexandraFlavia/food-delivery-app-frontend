@@ -56,8 +56,11 @@ const EditDeliveryUser = ({user}) => {
         }
     }
 
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+
     return(
-        <Container>
+        <Container style={boxStyle}>
+            <h2 style={{textAlign:"center"}}>Edit delivery user</h2> <br/>
             <Form>
                 <Form.Group>
                     <Form.Label>First name</Form.Label>
@@ -78,7 +81,7 @@ const EditDeliveryUser = ({user}) => {
                     <Form.Label>Phone number</Form.Label>
                     <Form.Control isInvalid={errors.phoneNumber} id={"phoneNumber"} value={updatedUser.phoneNumber} type="email" onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> <br/>
                 <Button variant="success" onClick={updateDeliveryUser}>Save delivery user</Button>
                 {
                     updated? <h3 style={{color:"green"}}>Details updated successfully!</h3>: null

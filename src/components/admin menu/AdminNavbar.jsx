@@ -3,7 +3,6 @@ import { Fragment } from "react"
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import UserContext from "../context/UserContext"
 
-
 const AdminNavbar = () => {
 
     const {user, setUser} = useContext(UserContext)
@@ -13,8 +12,8 @@ const AdminNavbar = () => {
             method: "post"
         }).then(() => {
             localStorage.removeItem("token")
-            setUser({})
             window.location.href = "/"
+            setUser({})
         })
     }
 

@@ -4,6 +4,7 @@ import { Container, Form, Button } from "react-bootstrap"
 
 const EditClientAccountInfo = ({user, setUser}) => {
 
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
     const [updatedClient, setUpdatedClient] = useState(user)
     const [errors, setErrors] = useState({})
     const [updated, setUpdated] = useState(false)
@@ -62,32 +63,35 @@ const EditClientAccountInfo = ({user, setUser}) => {
 
     return(
         <Container>
-            <Form>
-                <Form.Group>
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control isInvalid={errors.firstName} id={"firstName"} value={updatedClient.firstName || ""} onChange={onChange}/>
-                    <Form.Control.Feedback type={"invalid"}>{errors.firstName}</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control isInvalid={errors.lastName} id={"lastName"} value={updatedClient.lastName || ""} onChange={onChange}/>
-                    <Form.Control.Feedback type={"invalid"}>{errors.lastName}</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control isInvalid={errors.email} id={"email"} value={updatedClient.email || ""} type="email" onChange={onChange}/>
-                    <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Phone number</Form.Label>
-                    <Form.Control isInvalid={errors.phoneNumber} id={"phoneNumber"} value={updatedClient.phoneNumber || ""} type="email" onChange={onChange}/>
-                    <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
-                </Form.Group>
-                <Button variant="success" onClick={updateClient}>Save client</Button>
-                {
-                    updated? <h3 style={{color:"green"}}>Details updated successfully!</h3>: null
-                }
-            </Form>
+            <div style={boxStyle}>
+                <Form>
+                    <Form.Group>
+                        <Form.Label>First name</Form.Label>
+                        <Form.Control isInvalid={errors.firstName} id={"firstName"} value={updatedClient.firstName || ""} onChange={onChange}/>
+                        <Form.Control.Feedback type={"invalid"}>{errors.firstName}</Form.Control.Feedback>
+                    </Form.Group> <br/>
+                    <Form.Group>
+                        <Form.Label>Last name</Form.Label>
+                        <Form.Control isInvalid={errors.lastName} id={"lastName"} value={updatedClient.lastName || ""} onChange={onChange}/>
+                        <Form.Control.Feedback type={"invalid"}>{errors.lastName}</Form.Control.Feedback>
+                    </Form.Group> <br/>
+                    <Form.Group>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control isInvalid={errors.email} id={"email"} value={updatedClient.email || ""} type="email" onChange={onChange}/>
+                        <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
+                    </Form.Group> <br/>
+                    <Form.Group>
+                        <Form.Label>Phone number</Form.Label>
+                        <Form.Control isInvalid={errors.phoneNumber} id={"phoneNumber"} value={updatedClient.phoneNumber || ""} type="email" onChange={onChange}/>
+                        <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
+                    </Form.Group> <br/>
+                    <Button variant="success" onClick={updateClient}>Save client</Button>
+                    {
+                        updated? <h3 style={{color:"green"}}>Details updated successfully!</h3>: null
+                    }
+                </Form>
+            </div>
+            
         </Container>
     )
 }

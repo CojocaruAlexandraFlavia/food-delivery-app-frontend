@@ -41,8 +41,10 @@ const Order = ({orderId}) => {
         return orderProduct.productDto.price - orderProduct.productDto.discount / 100 * orderProduct.productDto.price
     }
 
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+
     return(
-        <Container>
+        <Container style={boxStyle}>
             {
                 loading? <LoadingSpinner/> : 
                 <Fragment>
@@ -86,13 +88,13 @@ const Order = ({orderId}) => {
                     </Table>
                     <Row>
                         <Col md={6}>
-                            <div style={{ boxShadow:"1px 1px 4px 4px grey", padding:"10px"}}>
+                            <div style={{ boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}}>
                                 <h2>Delivery user</h2>
                                 <h4>Name: {deliveryUser.firstName} {deliveryUser.lastName}</h4>
                             </div>
                         </Col>
                         <Col md={6}>
-                            <div style={{ boxShadow:"1px 1px 4px 4px grey", padding:"10px"}}>
+                            <div style={{ boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}}>
                                 <h3>Delivery address</h3>
                                 <h4>{order.deliveryAddress.address} <br/>
                                     {order.deliveryAddress.city}, {order.deliveryAddress.zipCode}
@@ -100,7 +102,7 @@ const Order = ({orderId}) => {
                             </div>
                         </Col>
                     </Row>
-                    <div style={{ boxShadow:"1px 1px 4px 4px grey", padding:"10px", marginTop:"5%"}}>
+                    <div style={{ boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px", marginTop:"5%"}}>
                         <h2>Payment method: {order.paymentType.replaceAll("_", " ")}</h2>
                     </div>
             </Fragment>
