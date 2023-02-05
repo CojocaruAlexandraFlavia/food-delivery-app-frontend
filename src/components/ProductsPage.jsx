@@ -1,11 +1,13 @@
-import { Fragment, useState, useCallback, useEffect } from "react"
+import { Fragment, useState, useCallback, useEffect, useContext } from "react"
 import { Button, Container, Modal, Form } from "react-bootstrap"
 import { useParams } from "react-router"
 import UpdateProduct from "./UpdateProduct"
+import UserContext from "../components/context/UserContext"
 
 const ProductsPage = ({restaurantId}) => {
 
     const {idParam} = useParams()
+    const {user} = useContext(UserContext)
     let restId = idParam !== undefined ? idParam : restaurantId
 
     const [allProducts, setAllProducts] = useState([])
@@ -66,6 +68,25 @@ const ProductsPage = ({restaurantId}) => {
           } 
       })
     } 
+
+    const addProductToCart = (id) => { 
+      if(product.availability === true){
+        const requestBody ={
+          "clientId":user.id,
+          "productId":id,
+          "quantity":1
+        }
+      
+    
+      fetch( `/order/add-products`, {
+          method: "PUT",
+          body:JSON.stringify(requestBody),
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+    }
+  }
 
     const closeModal = () => {
         setEditModal(false)
@@ -168,6 +189,7 @@ const ProductsPage = ({restaurantId}) => {
                       <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
                       <Button onClick={() => editProductId(product.id)}>Edit</Button>
                       <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>
+                      <Button onClick={() => addProductToCart(product.id)}>Add to cart</Button>
                   </div> <br/>
                   
                   <Modal show={editModal} onHide={closeModal}>

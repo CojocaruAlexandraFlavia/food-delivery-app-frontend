@@ -12,7 +12,12 @@ const CartProducts = () => {
     
     const[products, setProducts] = useState([])
 
-      const decreaseProductQuantity = (id) => { 
+      const decreaseProductQuantity = (id, index) => { 
+        if(products[index].quantity === 1){
+        
+            products.splice(index, 1)
+         
+        }
         const requestBody ={
             "clientId":user.id,
             "productId":id
@@ -23,8 +28,12 @@ const CartProducts = () => {
             headers: {
                 "Content-Type": "application/json"
             }
+        }).then(response => response.json()).then(response => {
+            setProducts(response.products)
+            setDeliveryTax(response.deliveryTax)
+            setOrderValue(response.value)
         })
-        window.location.reload(false);
+       
       }
 
       const increaseProductQuantity=(id) =>{
@@ -38,8 +47,12 @@ const CartProducts = () => {
             headers: {
                 "Content-Type": "application/json"
             }
+        }).then(response => response.json()).then(response => {
+            setProducts(response.products)
+            setDeliveryTax(response.deliveryTax)
+            setOrderValue(response.value)
         })
-        window.location.reload(false);
+       
       }
 
       const deleteProduct =(id) =>{
@@ -53,8 +66,12 @@ const CartProducts = () => {
             headers: {
                 "Content-Type": "application/json"
             }
+        }).then(response => response.json()).then(response => {
+            setProducts(response.products)
+            setDeliveryTax(response.deliveryTax)
+            setOrderValue(response.value)
         })
-        window.location.reload(false);
+       
       }
      
       
@@ -71,42 +88,42 @@ const CartProducts = () => {
           
             })
         }
+       
    
   }, [user.id])
     return(
         
         <Fragment>
             {
-                products !== undefined ? products.map((product, i) => <div key={i}>
+               
+                products.length > 0 ? products.map((product, i) => <div key={i}>
                 <br></br>
                 <div style={{
                     display: 'block', width: 800, paddingLeft: 140
                 }}>
-                    <Panel shaded fontSize="30px">
+                    <Panel shaded={true} fontSize="30px">
 
                     <h3> {product.quantity}x {product.productDto.name}</h3>
-
-                    <table >
-                    <br></br>
-                    <tr>Initial price: 
-                        <td style={{paddingLeft:10}}>{ product.productDto.price * product.quantity}  lei</td>
-                    </tr>
-                    <tr>Discount:
-                        <td style ={{color:"#d41919"}}>{product.productDto.discount}%</td>
-                    </tr>
-                    <tr>Price: 
-                        <td>{((product.productDto.price -
-                        (product.productDto.discount / 100 * product.productDto.price)) * product.quantity).toPrecision(4)} lei</td>
-                    </tr>
+                    <table>
+                    <tbody>
+                        <tr>Initial price: 
+                            <td style={{paddingLeft:10}}>{ product.productDto.price * product.quantity}  lei</td>
+                        </tr>
+                        <tr>Discount:
+                            <td style ={{color:"#d41919"}}>{product.productDto.discount}%</td>
+                        </tr>
+                        <tr>Price: 
+                            <td>{((product.productDto.price -
+                            (product.productDto.discount / 100 * product.productDto.price)) * product.quantity).toPrecision(4)} lei</td>
+                        </tr>
+                    </tbody>
+                    
                     </table>
 
-                    <br></br>
-                    <br></br><br>
-
-                    </br>
-                    <Button variant="secondary" onClick={() => decreaseProductQuantity(product.productDto.id)} negative className='quan-buttons'  style={{width:40, height:40, alignContent:"center"}}color="blue"> - </Button>
+                    
+                    <Button variant="secondary" onClick={() => decreaseProductQuantity(product.productDto.id, i)} negative className='quan-buttons'  style={{width:40, height:40, alignContent:"center"}}color="blue"> - </Button>
                 {
-                <input type="text" id="quantity"name="quantity" value={product.quantity} style={{width:40, alignContent:"center", paddingBottom:6}} />
+                <input readOnly type="text" id="quantity"name="quantity" value={product.quantity} style={{width:40, alignContent:"center", paddingBottom:6}} />
                 }
                 <Button className='quan-buttons' onClick={() => increaseProductQuantity(product.productDto.id)} style={{width:40, height:40, alignContent:"center"}} >
                  + </Button>
@@ -114,14 +131,14 @@ const CartProducts = () => {
                 </Panel>
                 </div>
                 
-           
-            
-            <br></br>
-          
-            <div style={{
+                </div>):null
+            }
+            {
+                products.length > 0 &&
+                <div style={{
                     display: 'block', width: 800, paddingLeft: 140
                 }}>
-                    <Panel shaded fontSize="30px">
+                    <Panel shaded={true} fontSize="30px">
                    
                     <table >
                
@@ -138,41 +155,36 @@ const CartProducts = () => {
                     </tr>
                     </table>
                     <a href="/client-account/finish-order">
-                    <Button shaded className="finish-order-button"  style={{width:140, height:40, alignContent:"center", backgroundColor:"#73BA9B", borderColor:"#73BA9B", fontSize:14, float:"right", fontWeight:"bold", marginBottom:10}} >FINISH ORDER</Button>
+                    <Button className="finish-order-button"  style={{width:140, height:40, alignContent:"center", backgroundColor:"#73BA9B", borderColor:"#73BA9B", fontSize:14, float:"right", fontWeight:"bold", marginBottom:10}} >FINISH ORDER</Button>
               
                     </a>
                     
-                    <br></br>
+                    <br/>
                     </Panel>
                 </div>
-                <br></br>
-                <br></br>
-                </div>): null
-            
-        }
-          {
-            products === undefined &&
-            <div>
-                <p>Your cart is empty</p>
-            </div>
-          }
-          {
-            products.length <= 0 &&
-            
+               
+            }
+            {
+                products.length <= 0 &&
+                         
             <div style={{
                       display: "flex", justifyContent: "center", alignItems: "center", marginTop:80
                 }}>
                 <br></br>
                 <br></br>
-                    <Panel shaded fontSize="30px">
+                    <Panel shaded={true} fontSize="30px">
 
                     <div>
                         <h3> Your cart is empty</h3>
                     </div>
                    </Panel>
-                </div>
+            </div>
+            }
             
-          }
+          
+            
+    
+         
         </Fragment>
         
     )

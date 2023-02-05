@@ -39,9 +39,7 @@ return(
               <h2>Restaurant {restaurant.name}</h2>
               <h2>Rating {restaurant.rating}</h2>
 
-              <ProductsPage products={restaurant.products}/>
-              
-             
+              <ProductsPage products={restaurant.products}/>   
             
       </Fragment>
   }
