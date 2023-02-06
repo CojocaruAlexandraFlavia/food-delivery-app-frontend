@@ -117,7 +117,7 @@ const ProductsPage = ({restaurantId}) => {
           setErrors({})
           setTimeout(() => {
             setProductAddedToCart(false)
-          }, 5000)
+          }, 2000)
       }
     })
     } 
@@ -238,6 +238,14 @@ const ProductsPage = ({restaurantId}) => {
                         <UpdateProduct productId={productId}/>
                     </Modal.Body>
                   </Modal>
+
+                  <Modal show={productAddedToCart} onClose={closeAddToCartModal}  >
+                    <Modal.Header closeButton={true}> </Modal.Header>
+                    <Modal.Body>
+                      <h3 style={{color:"green"}}>Product added successfully to Cart</h3>
+                    </Modal.Body>
+                  </Modal>
+
               </Fragment>)
             }
 
@@ -246,17 +254,9 @@ const ProductsPage = ({restaurantId}) => {
               deleted? <h3>Deleted successfully</h3>: null 
             }       
             {
-                productAddedFavoriteList? <h3 style={{color:"green"}}>Product added successfully to Favorite List</h3> : null
+              productAddedFavoriteList? <h3 style={{color:"green"}}>Product added successfully to Favorite List</h3> : null
             }
 
-            {
-              <Modal show={productAddedToCart} onHide={closeAddToCartModal}>
-                <Modal.Header closeButton> </Modal.Header>
-                <Modal.Body>
-                  <h3 style={{color:"green"}}>Product added successfully to to Cart</h3>
-                </Modal.Body>
-              </Modal>
-            }
             <br/>
 
             <Button variant="success" onClick={saveOpenModal}>Add product</Button>
