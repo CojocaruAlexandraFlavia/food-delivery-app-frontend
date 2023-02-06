@@ -35,7 +35,6 @@ const ProductsPage = ({restaurantId}) => {
       clientUserId: 0
     })
     const [productAddedToCart, setProductAddedToCart] = useState(false)
-    const [addCartModal, setAddCartModal] = useState(false)
 
     const getAllProducts = useCallback(() => {
         fetch(`/product/get-all-by-restaurantId/${restId}`)
@@ -141,11 +140,11 @@ const ProductsPage = ({restaurantId}) => {
     }
 
     const closeAddToCartModal = () => {
-      setAddCartModal(false)
+      setProductAddedToCart(false)
     }
 
     const openAddToCartModal = () => {
-      setAddCartModal(true)
+      setProductAddedToCart(true)
     }
 
     const findFormErrors = () => {
@@ -253,7 +252,7 @@ const ProductsPage = ({restaurantId}) => {
               <Modal show={productAddedToCart} onHide={closeAddToCartModal}>
                 <Modal.Header closeButton> </Modal.Header>
                 <Modal.Body>
-                  <h3 style={{color:"green"}}>Product added successfully to to Cart</h3>
+                  <h3 style={{color:"green"}}>Product added successfully to Cart</h3>
                 </Modal.Body>
               </Modal>
             }
