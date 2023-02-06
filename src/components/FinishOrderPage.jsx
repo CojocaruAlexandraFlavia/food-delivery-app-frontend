@@ -11,15 +11,22 @@ import { useNavigate } from "react-router";
 
 const FinishOrderPage = () => {
 
+    const total ="Total"
+    const tax ="Delivery tax:"
+    const productsPrice = "Products price:"
+    const initialPrice = "Initial price:"
+    const discount ="Discount:"
+    const productPrice = "Price:"
+    const lei ="lei"
+    const percent ="%"
+
     const {user} = useContext(UserContext)
     const addresses = user.addresses
     const [checkedAddress, setCheckedAddress] = useState("0")
     const [errors, setErrors] = useState({})
-
     const[deliveryTax, setDeliveryTax] = useState(0.0)
     const[orderValue, setOrderValue] = useState(0.0)
     const[paymentType, setPaymentType] =useState("")
-    
     const[products, setProducts] = useState([])
     const [locationErrors, setLocationErrors] = useState({})
     const [locationAdded, setLocationAdded] = useState(false)
@@ -29,11 +36,9 @@ const FinishOrderPage = () => {
         zipCode:""
     })
     
- 
-    const [showModal, setShowModal] = useState(false)
-    
-    const navigate = useNavigate();
 
+    const [showModal, setShowModal] = useState(false)
+    const navigate = useNavigate();
     const findLocationErrors = () => {
         const {city, address, zipCode} = location
         const newErrors = {}
@@ -54,7 +59,6 @@ const FinishOrderPage = () => {
             setLocationErrors(newLocationErrors)
             setLocationAdded(false)
         } else {
-
 
             const requestBody ={
                 "clientId":user.id,
@@ -103,8 +107,7 @@ const FinishOrderPage = () => {
         if(checkedAddress > 0){
             const requestBody ={
                 "clientId":user.id,
-                "addressId":checkedAddress
-                
+                "addressId":checkedAddress  
             }
     
             fetch( `/order/send`, {
@@ -151,7 +154,6 @@ const FinishOrderPage = () => {
                 <Row>
                     <Col md={4}>
                         <Form.Group >
-            
                             <br/>
                         
                             <div style={{display: 'block', width: 400}}>
@@ -166,16 +168,19 @@ const FinishOrderPage = () => {
                                     
                                             <h3> {product.quantity}x {product.productDto.name}</h3>
                                             <table >
-                                            <tr>Initial price: 
-                                                <td style={{paddingLeft:10}}>{ product.productDto.price * product.quantity}  lei</td>
-                                            </tr>
-                                            <tr>Discount:
-                                                <td style ={{color:"#d41919"}}>{product.productDto.discount}%</td>
-                                            </tr>
-                                            <tr>Price: 
-                                                <td>{(product.productDto.price -
-                                                (product.productDto.discount / 100 * product.productDto.price)) * product.quantity} lei</td>
-                                            </tr>
+                                                <tbody>
+                                                        <tr>{initialPrice} 
+                                                        <td style={{paddingLeft:10}}>{ product.productDto.price * product.quantity}  lei</td>
+                                                        </tr>
+                                                        <tr>{discount}
+                                                            <td style ={{color:"#d41919"}}>{product.productDto.discount}%</td>
+                                                        </tr>
+                                                        <tr>{productPrice} 
+                                                            <td>{(product.productDto.price -
+                                                            (product.productDto.discount / 100 * product.productDto.price)) * product.quantity} lei</td>
+                                                        </tr>
+                                                </tbody>
+                                            
                                             </table>
                                             <hr style={{width:300}}></hr>
                                         
@@ -184,34 +189,32 @@ const FinishOrderPage = () => {
                             </div>
                             <br/>
                                 <table>
-                                    <tr>Delivery tax: 
-                                        <td style={{paddingLeft:10}}>{deliveryTax}  lei</td>
-                                    </tr>
-                                    <tr> Products price:
-                                        <td style ={{paddingLeft:10}}> {orderValue.toFixed(2)} lei</td>
-                                    </tr>
-                                    <tr> Payment method:
-                                        <td style ={{paddingLeft:10}}> {paymentType}</td>
-                                    </tr>
-                                    <br/>
+                                <tbody>
+                                    <tr>{tax}
+                                            <td style={{paddingLeft:10}}>{deliveryTax}  lei</td>
+                                        </tr>
+                                        <tr>{productsPrice}
+                                            <td style ={{paddingLeft:10}}> {orderValue.toFixed(2)} lei</td>
+                                        </tr>
+                                        <tr> Payment method:
+                                            <td style ={{paddingLeft:10}}> {paymentType}</td>
+                                        </tr>
+                                        <br/>
 
-                                    <tr> <h3>Total:</h3>
-                                        <td> 
-                                        <h3> {(deliveryTax + orderValue).toFixed(2)} lei</h3>
+                                        <tr style={{fontSize: 28, fontWeight: "bold"}}> {total}
+                                            <td> 
+                                            <h3> {(deliveryTax + orderValue).toFixed(2)} lei</h3>
                                         </td>    
                                     </tr>
-                                    </table>
-                                 
+                                </tbody>
                                     
-                                    <Button id="sendOrder" disabled={checkedAddress === "0"}  variant="success" className="finish-order-button" onClick={() => sendOrder() } style={{width:120, height:40, alignContent:"center", float:"right", marginBottom:10}} >PROCEED</Button>
+                                </table>
 
-                                   
+                                    <Button id="sendOrder" disabled={checkedAddress === "0"}  variant="success" className="finish-order-button" onClick={() => sendOrder() } style={{width:120, height:40, alignContent:"center", float:"right", marginBottom:10}} >PROCEED</Button>
                                     </Panel>
                                 </div>
-                                <br/>
-                                <br/>
-            
-          
+                                <br/><br/>
+
                         </Form.Group>
                     </Col>
                     <Col md={4}>
@@ -225,12 +228,9 @@ const FinishOrderPage = () => {
                                     :null}
                                
                             </Form.Select>
-                       
-                        
                         <Form.Group>
                         <br/> <br/>
                             <Form.Label>Add address</Form.Label>
-                        
                             <Form.Group>
                                 <Form.Label>City</Form.Label>
                                 <Form.Control value={location.city} isInvalid={locationErrors.city} onChange={(e) => setLocation({...location, city: e.target.value})}/>
@@ -258,23 +258,14 @@ const FinishOrderPage = () => {
                         </Form.Group>
                     </Col>             
                 </Row>
-                </Form.Group>
-                
-        
-        
+            </Form.Group>
+
         </Form>
-        <Modal show={showModal}>
-                   
+        <Modal show={showModal}>     
             <Modal.Body>
                 Order sent successfully!
             </Modal.Body>
         </Modal>
-        
-        </Container>
-        
-
-    )
-
-
+    </Container>  )
 }
 export default FinishOrderPage
