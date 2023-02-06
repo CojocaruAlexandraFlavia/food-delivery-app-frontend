@@ -3,16 +3,17 @@ import 'rsuite/dist/rsuite.min.css';
 import { Panel } from 'rsuite';
 import { Button} from "react-bootstrap"
 import UserContext from "../components/context/UserContext"
-import { Col, Container, Form, Row} from "react-bootstrap"
+import { Col, Container, Form, Row, Modal} from "react-bootstrap"
 
 import React from "react";
+import { useNavigate } from "react-router";
 
 
 const FinishOrderPage = () => {
 
     const {user} = useContext(UserContext)
     const addresses = user.addresses
-    const [checkedAddress, setCheckedAddress] = useState()
+    const [checkedAddress, setCheckedAddress] = useState("0")
     const [errors, setErrors] = useState({})
 
     const[deliveryTax, setDeliveryTax] = useState(0.0)
@@ -28,6 +29,11 @@ const FinishOrderPage = () => {
         zipCode:""
     })
     
+ 
+    const [showModal, setShowModal] = useState(false)
+    
+    const navigate = useNavigate();
+
     const findLocationErrors = () => {
         const {city, address, zipCode} = location
         const newErrors = {}
@@ -89,6 +95,7 @@ const FinishOrderPage = () => {
         if(errors[id]) {
             setErrors({...errors, [id]: null})
         }
+        console.log(value)
     }
   
 
@@ -106,7 +113,14 @@ const FinishOrderPage = () => {
                 headers: {
                     "Content-Type": "application/json"
                 }
+            }).then(() =>{
+                setShowModal(true)
+                setTimeout(() => {
+                    setShowModal(false)
+                    navigate("/home-client")
+                }, 5000)
             })
+
         }else{
             setErrors({addressId: "Required field"})
         }
@@ -187,11 +201,11 @@ const FinishOrderPage = () => {
                                         </td>    
                                     </tr>
                                     </table>
-                                   
-                                    <Button variant="success" className="finish-order-button" onClick={() => sendOrder() } style={{width:120, height:40, alignContent:"center", float:"right", marginBottom:10}} >PROCEED</Button>
+                                 
                                     
-                                  
-                                    <br></br>
+                                    <Button id="sendOrder" disabled={checkedAddress === "0"}  variant="success" className="finish-order-button" onClick={() => sendOrder() } style={{width:120, height:40, alignContent:"center", float:"right", marginBottom:10}} >PROCEED</Button>
+
+                                   
                                     </Panel>
                                 </div>
                                 <br/>
@@ -249,9 +263,15 @@ const FinishOrderPage = () => {
         
         
         </Form>
-        
+        <Modal show={showModal}>
+                   
+            <Modal.Body>
+                Order sent successfully!
+            </Modal.Body>
+        </Modal>
         
         </Container>
+        
 
     )
 
