@@ -147,70 +147,6 @@ const ProductsPage = ({restaurantId}) => {
       setProductAddedToCart(true)
     }
 
-    const findFormErrors = () => {
-      const {name, price, discount, ingredients, categoryId} = product
-      const newErrors = {}
-      const requiredField = "Required field"
-
-      if(name === "") newErrors.name = requiredField
-      if(price === "") newErrors.price = requiredField
-      if(discount === "") newErrors.discount = requiredField
-      if(ingredients === "") newErrors.ingredients = requiredField
-      if(categoryId === "") newErrors.categoryId = requiredField
-      return newErrors
-    }
-
-    const onChange = (e) => {
-      const {id, value} = e.target
-      setProduct({ ...product, [id]: value });
-      if(errors[id]) {
-          setErrors({...errors, [id]: null})
-      }
-    }
-
-    const saveProduct = () => {
-
-      const newErrors = findFormErrors()
-        if(Object.keys(newErrors).length > 0) {
-            setErrors(newErrors)
-        } 
-        else 
-        {
-          console.log(product)
-
-          const controller = new AbortController()
-          const signal = controller.signal
-
-          fetch("/product/save", {
-              method:"POST",
-              body: JSON.stringify(product),
-              signal:signal,
-              headers:{
-                  "Content-Type":"application/json",
-                  "Accept":"application/json"
-              }
-          }).then(response => {
-              if(response.status === 200) {
-                setProductAdded(true)
-                  setErrors({})
-                  setProduct({
-                    name:"",
-                    price:"",
-                    discount:"",
-                    ingredients:"",
-                    availability:true,
-                    restaurantId:restId,
-                    categoryId:0
-                  })
-                  setTimeout(() => {
-                    setProductAdded(false)
-                  }, 5000)
-              }
-          })
-        }
-    }
-
-
     return(
         <Container>
             {
@@ -220,10 +156,7 @@ const ProductsPage = ({restaurantId}) => {
                       <h6>Price: {product.price}</h6>
                       <h6>Discount: {product.discount}</h6>
                       <h6>Ingredients: {product.ingredients}</h6>
-                      <h6>Availability: {product.availability.toString()}</h6>
-                      
-                      <br/>
-
+                      <h6>Availability: {product.availability.toString()}</h6> <br/>
                       {
                         user.role === "ROLE_RESTAURANT_MANAGER"? <Fragment>
                             <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
@@ -232,11 +165,12 @@ const ProductsPage = ({restaurantId}) => {
                         </Fragment>: null
                       }
                       {
-                        user.role === "ROLE_CLIENT_USER"? <Button onClick={() => addProductToCart(product.id)}>Add to cart</Button>: null
-                      }
-                      
-                  </div> <br/>
-                  
+                        user.role === "ROLE_CLIENT_USER"? <Fragment>
+                            <Button variant="warning" onClick={() => addToFavorite(product.id)}>Add to Favorite List</Button>
+                            <Button variant="info" onClick={() => {addProductToCart(product.id); openAddToCartModal()}}>Add to cart</Button>
+                        </Fragment> :null
+                      }                      
+                  </div> <br/>                  
                   <Modal show={editModal} onHide={closeModal}>
                     <Modal.Header closeButton>Edit product</Modal.Header>
                     <Modal.Body>
@@ -245,7 +179,6 @@ const ProductsPage = ({restaurantId}) => {
                   </Modal>
               </Fragment>)
             }
-
             <br/>
             { 
               deleted? <h3>Deleted successfully</h3>: null 
@@ -253,7 +186,6 @@ const ProductsPage = ({restaurantId}) => {
             {
                 productAddedFavoriteList? <h3 style={{color:"green"}}>Product added successfully to Favorite List</h3> : null
             }
-
             {
               <Modal show={productAddedToCart} onHide={closeAddToCartModal}>
                 <Modal.Header closeButton> </Modal.Header>
@@ -261,49 +193,7 @@ const ProductsPage = ({restaurantId}) => {
                   <h3 style={{color:"green"}}>Product added successfully to Cart</h3>
                 </Modal.Body>
               </Modal>
-            }
-            <br/>
-
-            <Button variant="success" onClick={saveOpenModal}>Add product</Button>
-            <Modal show={saveModal} onHide={closeSaveModal}>
-              <Modal.Header closeButton>Add product</Modal.Header>
-              <Modal.Body>
-                <Form>
-                  <Form.Group>
-                      <Form.Label>Name</Form.Label>
-                      <Form.Control id={"name"} value={product.name} isInvalid={errors.name} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.name}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group>
-                      <Form.Label>Price</Form.Label>
-                      <Form.Control id={"price"} value={product.price} isInvalid={errors.price} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.price}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group>
-                      <Form.Label>Discount</Form.Label>
-                      <Form.Control id={"discount"} value={product.discount} isInvalid={errors.discount} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.discount}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group>
-                      <Form.Label>Ingredients</Form.Label>
-                      <Form.Control id={"ingredients"} value={product.ingredients} isInvalid={errors.ingredients} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.ingredients}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group>
-                      <Form.Label>Category Id</Form.Label>
-                      <Form.Control id={"categoryId"} value={product.categoryId} isInvalid={errors.categoryId} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.categoryId}</Form.Control.Feedback>
-                  </Form.Group>
-                <Button variant="success" onClick={saveProduct}>Add product</Button>
-                <br/><br/>
-                {
-                    productAdded? <h3 style={{color:"green"}}>Product added successfully</h3> : null
-                }
-                </Form>
-
-              </Modal.Body>
-            </Modal>
-
+            } <br/>
         </Container>
     )
 }
