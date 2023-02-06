@@ -93,7 +93,7 @@ const ProductsPage = ({restaurantId}) => {
             setErrors({})
             setTimeout(() => {
               setProductAddedFavoriteList(false)
-            }, 5000)
+            }, 2000)
         }
       })
     }
