@@ -1,51 +1,98 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { Rating } from "react-simple-star-rating";
+import ClientNavbar from "./client menu/ClientNavbar";
+import UserContext from "./context/UserContext";
 
 const ClientHomePage = () => {
 
+    const {user, setUser} = useContext(UserContext)
     const [restaurants, setRestaurants] = useState([])
+    const [showChangeCityModal, setShowChangeCityModal] = useState(false)
+    const [newCity, setNewCity] = useState("")
+    const [error, setError] = useState("")
 
-    useEffect(() => {
-
-        const controller = new AbortController()
-        const signal = controller.signal
+    const getRestaurantsByCity = useCallback(() => {
         const token = sessionStorage.getItem("token")
 
-        fetch("/restaurant/get-all", {
-            signal: signal,
+        fetch(`/restaurant/get-all-by-city/${user.preferredCity}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         }).then(response => response.json()).then(response => setRestaurants(response))
+    }, [user.preferredCity])
 
-        return () => {
-            controller.abort()
+    const handleChangePreferredCity = () => {
+        if (newCity === "") {
+            setError("Required field")
+        } else {
+            fetch(`/user/change-preferred-city/?newCity=${newCity}&userId=${user.id}`, {
+                method:"PATCH"
+            }).then(response => response.json()).then(response => {
+                setUser(response)
+                getRestaurantsByCity()
+                onHideModal()
+            })
         }
+    }
 
-    }, [])
+    useEffect(() => {
+       getRestaurantsByCity()
+       setNewCity(user.preferredCity)
+    }, [getRestaurantsByCity, user.preferredCity])
 
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+
+    const onHideModal = () => {
+        setShowChangeCityModal(false)
+        setNewCity(user.preferredCity)
+        setError("")
+    }
 
     return(
         <Fragment>
-            <Container>
-                <h1>Client home page</h1>
+            <ClientNavbar/> <br/>
+            <Container style={boxStyle}>
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <h3>Restaurants from your preferred city: {user.preferredCity}</h3>
+                    <Button onClick={() => setShowChangeCityModal(true)}>Change preferred city</Button>
+                </div>
+                <br/>
                 {
                     restaurants.map((restaurant, i) => <Fragment key={i}>
-                        <h4>{restaurant.name}</h4>
-                        <h4>Nr. de telefon: {restaurant.phoneNumber}</h4>
-                        <h4>Rating: {restaurant.rating}</h4>
-                        <h4>Review-uri:</h4>
-                        {
-                            restaurant.reviews.map((review, j) => <Fragment key={j}>
-                                <h5>Stele: {review.stars}</h5>
-                                <h5>Comentariu: {review.comment}</h5>
-                                <h5>Client: {review.clientFirstName} {review.clientLastName}</h5>
-                            </Fragment>)
-                        }
+                            <div style={boxStyle}>
+                                <Row>
+                                    <Col md={10}>
+                                        <h5>{restaurant.name}</h5>
+                                        <div style={{display:"flex"}}>
+                                            <h5 style={{alignSelf:"center"}}>Rating: </h5>
+                                            <Rating readonly initialValue={restaurant.rating} allowFraction size={25}/>
+                                            <h5 style={{alignSelf:"center"}}>({restaurant.rating}/5.0)</h5>
+                                        </div>
+                                    </Col>
+                                    <Col md={2} style={{display:"flex"}}>
+                                        <a href={`/restaurant/${restaurant.id}`} style={{alignSelf:"center"}}>See restaurant</a>
+                                    </Col>
+                                </Row>
+                                
+                            </div>                                           
                     </Fragment>)
                 }
+                <Modal show={showChangeCityModal} onHide={onHideModal}>
+                    <Modal.Header closeButton>Change preferred city</Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Control onChange={(e) => setNewCity(e.target.value)} value={newCity} isInvalid={error}/>
+                            <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={handleChangePreferredCity} variant="success">Change</Button>
+                    </Modal.Footer>
+                </Modal>
             </Container>
         </Fragment>
     )

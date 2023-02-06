@@ -11,7 +11,8 @@ const Register = () => {
         lastName: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        preferredCity: ""
     })
     const [errors, setErrors] = useState({})
     const [added, setAdded] = useState(false)
@@ -26,7 +27,7 @@ const Register = () => {
     }
 
     const findFormErrors = () => {
-        const {firstName, lastName, confirmPassword, email, password} = user
+        const {firstName, lastName, confirmPassword, email, password, preferredCity} = user
         const newErrors = {}
         const requiredField = "Required field"
 
@@ -43,7 +44,7 @@ const Register = () => {
         }
         if(confirmPassword === "") newErrors.confirmPassword = requiredField
         else if(password !== "" && confirmPassword !== "" && password !== confirmPassword) newErrors.confirmPassword = "Passwords don't match!"
-
+        if(preferredCity === "") newErrors.preferredCity = requiredField
         return newErrors
     }
 
@@ -108,11 +109,22 @@ const Register = () => {
                             </Form.Group>
                         </Col>
                     </Row> <br/>
-                    <Form.Group>
-                        <Form.Label>Email</Form.Label>
-                            <Form.Control isInvalid={errors.email} id={"email"} value={user.email} type="email" onChange={onChange}/>
-                            <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
-                    </Form.Group> <br/>
+                    <Row>
+                        <Col md={6}>
+                            <Form.Group>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control isInvalid={errors.email} id={"email"} value={user.email} type="email" onChange={onChange}/>
+                                <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                            <Form.Group>
+                                <Form.Label>Preferred city</Form.Label>
+                                <Form.Control isInvalid={errors.preferredCity} id={"preferredCity"} value={user.preferredCity} onChange={onChange}/>
+                                <Form.Control.Feedback type={"invalid"}>{errors.preferredCity}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
+                    </Row> <br/>
                     <Row className="mb-6">
                         <Col md={6}>
                             <Form.Group>

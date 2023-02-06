@@ -5,6 +5,8 @@ import ManagerAccountInfo from "./ManagerAccountInfo"
 import ManagerNavbar from "./ManagerNavbar"
 import ManageRestaurants from "../admin menu/ManageRestaurants"
 import OwnedRestaurantReviews from "./OwnedRestaurantReviews"
+import ManagerOwnedRestaurants from "./ManagerOwnedRestaurants"
+import RestaurantPage from "../RestaurantPage"
 
 
 const ManagerMenu = () => {
@@ -69,8 +71,8 @@ const ManagerMenu = () => {
                     <Col md={9}>
                         {
                             options.accountInfo? <ManagerAccountInfo manager={user}/>:
-                            options.ownedRestaurants? <ManageRestaurants restaurants={user.ownedRestaurants}/>:
-                            // options.seeRestaurant? <Restaurant restaurantId={restaurantId}/>:
+                            options.ownedRestaurants? <ManagerOwnedRestaurants restaurants={user.ownedRestaurants}/>:
+                            options.seeRestaurant? <RestaurantPage restaurantId={restaurantId}/>:
                             options.reviews? <OwnedRestaurantReviews restaurants={user.ownedRestaurants}/>: null
                         }
                     </Col>

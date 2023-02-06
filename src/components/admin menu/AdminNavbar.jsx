@@ -11,8 +11,8 @@ const AdminNavbar = () => {
         fetch("/signOut", {
             method: "post"
         }).then(() => {
-            localStorage.removeItem("token")
             window.location.href = "/"
+            localStorage.removeItem("token")
             setUser({})
         })
     }

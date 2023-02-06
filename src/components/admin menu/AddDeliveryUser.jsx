@@ -7,13 +7,14 @@ const AddDeliveryUser = () => {
     const [deliveryUser, setDeliveryUser] = useState({
         firstName:"",
         lastName:"",
-        email:""
+        email:"",
+        preferredCity: ""
     })
     const [errors, setErrors] = useState({})
     const [added, setAdded] = useState(false)
     
     const findFormErrors = () => {
-        const {firstName, lastName, email} = deliveryUser
+        const {firstName, lastName, email, preferredCity} = deliveryUser
         const requiredField = "Required field"
         const newErrors = {}
 
@@ -24,7 +25,7 @@ const AddDeliveryUser = () => {
             const emailRegex = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/
             if(!emailRegex.test(email)) newErrors.email = "Invalid format"
         }
-
+        if(preferredCity === "") newErrors.preferredCity = requiredField
         return newErrors
     }
 

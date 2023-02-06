@@ -16,7 +16,7 @@ const NewReceivedOrders = () => {
             .then(response => setNewOrders(response))
     }, [])
 
-    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"5px"}
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
 
     const openOrderModal = (order) => {
         setOrderToSee(order)
@@ -41,7 +41,7 @@ const NewReceivedOrders = () => {
     }
 
     return(
-        <Container>
+        <Container style={boxStyle}>
             <Fragment>
                 <h1>New orders</h1>
                 {
@@ -62,7 +62,8 @@ const NewReceivedOrders = () => {
                 <Modal show={showModal} onHide={hideOrderModal} scrollable animation>
                     <Modal.Header closeButton>
                         {
-                            orderToSee.status === "RECEIVED" && orderToSee.deliveryUserId === undefined? <Row>
+                            orderToSee.status === "RECEIVED" && orderToSee.deliveryUserId === undefined && 
+                                    orderToSee.deliveryAddress.city.toLowerCase() === user.preferredCity.toLowerCase()? <Row>
                                 <Col md={6}>Order #{orderToSee.number}</Col>
                                 <Col md={6}>
                                     <Button onClick={assignOrder}>Assign</Button>

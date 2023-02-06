@@ -182,14 +182,18 @@ const ProductsPage = ({restaurantId}) => {
                       <h6>Availability: {product.availability.toString()}</h6>
                       
                       <br/>
-                      { 
-                      //deleted? <h3>Deleted successfully</h3>: null 
-                      } 
-            
-                      <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
-                      <Button onClick={() => editProductId(product.id)}>Edit</Button>
-                      <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>
-                      <Button onClick={() => addProductToCart(product.id)}>Add to cart</Button>
+
+                      {
+                        user.role === "ROLE_RESTAURANT_MANAGER"? <Fragment>
+                            <Button variant="danger" onClick={() => deleteProduct(product.id)}>Delete</Button>
+                            <Button onClick={() => editProductId(product.id)}>Edit</Button>
+                            <Button variant="secondary" onClick={() => changeAvailability(product.id)}>Change Availability</Button>   
+                        </Fragment>: null
+                      }
+                      {
+                        user.role === "ROLE_CLIENT_USER"? <Button onClick={() => addProductToCart(product.id)}>Add to cart</Button>: null
+                      }
+                      
                   </div> <br/>
                   
                   <Modal show={editModal} onHide={closeModal}>
@@ -205,47 +209,6 @@ const ProductsPage = ({restaurantId}) => {
             { 
               deleted? <h3>Deleted successfully</h3>: null 
             }       
-
-            <Button variant="success" onClick={saveOpenModal}>Add product</Button>
-            <Modal show={saveModal} onHide={closeSaveModal}>
-              <Modal.Header closeButton>Add product</Modal.Header>
-              <Modal.Body>
-                <Form>
-                  <Form.Group>
-                      <Form.Label>Name</Form.Label>
-                      <Form.Control id={"name"} value={product.name} isInvalid={errors.name} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.name}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group>
-                      <Form.Label>Price</Form.Label>
-                      <Form.Control id={"price"} value={product.price} isInvalid={errors.price} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.price}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group>
-                      <Form.Label>Discount</Form.Label>
-                      <Form.Control id={"discount"} value={product.discount} isInvalid={errors.discount} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.discount}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group>
-                      <Form.Label>Ingredients</Form.Label>
-                      <Form.Control id={"ingredients"} value={product.ingredients} isInvalid={errors.ingredients} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.ingredients}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group>
-                      <Form.Label>Category Id</Form.Label>
-                      <Form.Control id={"categoryId"} value={product.categoryId} isInvalid={errors.categoryId} onChange={onChange}/>
-                      <Form.Control.Feedback type={"invalid"}>{errors.categoryId}</Form.Control.Feedback>
-                  </Form.Group>
-                <Button variant="success" onClick={saveProduct}>Add product</Button>
-                <br/><br/>
-                {
-                    productAdded? <h3 style={{color:"green"}}>Product added successfully</h3> : null
-                }
-                </Form>
-
-              </Modal.Body>
-            </Modal>
-
         </Container>
     )
 }

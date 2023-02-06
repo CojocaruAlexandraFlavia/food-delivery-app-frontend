@@ -11,8 +11,8 @@ const DeliverCurrentOrder = ({deliver}) => {
     const allStatuses = useMemo(() => ["RECEIVED", "PICKED_UP", "ON_THE_WAY", "DELIVERED"], [])
 
     const getNextStatus = useCallback(() => {
-        return allStatuses[allStatuses.indexOf(currentOrder.status) + 1]}, [allStatuses, currentOrder]
-    )
+        return allStatuses[allStatuses.indexOf(currentOrder.status) + 1]
+    }, [allStatuses, currentOrder])
     
     useEffect(() => {
         if(deliver !== undefined && deliver.orders !== undefined) {
@@ -36,6 +36,8 @@ const DeliverCurrentOrder = ({deliver}) => {
             setCurrentOrder(response)
         })
     }
+
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
 
     return(
         <Fragment>

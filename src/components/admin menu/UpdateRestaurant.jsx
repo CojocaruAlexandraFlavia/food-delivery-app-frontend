@@ -3,8 +3,7 @@ import { Button, Container, Form } from "react-bootstrap"
 import { useParams } from "react-router"
 
 
-const UpdateRestaurant = ({restaurantId}) => {
-
+const UpdateRestaurant = ({restaurantId, getAllRestaurants, setEditModal}) => {
 
     const {paramId} = useParams()
     const id = paramId !== null && paramId !== undefined? paramId: restaurantId
@@ -13,7 +12,6 @@ const UpdateRestaurant = ({restaurantId}) => {
         phoneNumber:""
     })
     const [errors, setErrors] = useState({})
-    const [updated, setUpdated] = useState(false)
 
     useEffect(() => {
         fetch(`/restaurant/get-by-id/${id}`).then(response => response.json()).then(response => {
@@ -47,11 +45,9 @@ const UpdateRestaurant = ({restaurantId}) => {
                 }
             }).then(response => {
                 if(response.status === 200) {
-                    setUpdated(true)
                     setErrors({})
-                    setTimeout(() => {
-                        setUpdated(false)
-                    }, 3000)
+                    getAllRestaurants()
+                    setEditModal(false)
                 } 
             })
         }
@@ -71,9 +67,6 @@ const UpdateRestaurant = ({restaurantId}) => {
                     <Form.Control.Feedback type="invalid">{errors.phoneNumber}</Form.Control.Feedback>
                 </Form.Group> <br/>
                 <Button variant="success" onClick={update}>Update details</Button>
-                {
-                    updated? <h3 style={{color:"green"}}>Details updated successfully!</h3>: null
-                }
             </Form>
         </Container>
     )

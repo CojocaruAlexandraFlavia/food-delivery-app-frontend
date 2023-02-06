@@ -23,10 +23,10 @@ const Login = () => {
                 if (role === "ROLE_CLIENT_USER")
                     navigate("/home-client")
                 else if (role === "ROLE_ADMIN")
-                    navigate("/home-admin")
+                    navigate("/admin-account/account-info")
                 else if (role === "ROLE_DELIVERY_USER")
-                    navigate("/home-delivery-user")
-                else navigate("/home-restaurant-manager")
+                    navigate("/deliver-account/account-info")
+                else navigate("/manager-account/account-info")
             }).catch(() => {
                 setError("Wrong credentials!")
         })

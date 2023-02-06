@@ -1,3 +1,4 @@
+import { Fragment } from "react"
 import { useEffect, useState } from "react"
 import { Button, Container, Form, Modal } from "react-bootstrap"
 
@@ -74,46 +75,46 @@ const AddProduct = ({restaurantId}) => {
     }
 
     return(
-        <Container>
-            <Modal show={showModal} onHide={hideModal}>
-                <Modal.Header closeButton>Add product</Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control id={"name"} onChange={onChange} value={product.name} isInvalid={errors.name}/>
-                            <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control id={"price"} type="number" onChange={onChange} value={product.price} isInvalid={errors.price}/>
-                            <Form.Control.Feedback type="invalid">{errors.price}</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Discount</Form.Label>
-                            <Form.Control id={"discount"} onChange={onChange} value={product.discount} isInvalid={errors.discount}/>
-                            <Form.Control.Feedback type="invalid">{errors.discount}</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Ingredients</Form.Label>
-                            <Form.Control id={"ingredients"} onChange={onChange} value={product.ingredients} isInvalid={errors.ingredients}/>
-                            <Form.Control.Feedback type="invalid">{errors.ingredients}</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Category</Form.Label>
-                            <Form.Select id={"categoryId"} onChange={onChange} isInvalid={errors.categoryId}>
-                                <option value={0}>Select a category</option>
-                                {
-                                    categories.map((category, i) => <option id={i} value={category.id} key={i}>{category.name}</option>)
-                                }
-                            </Form.Select>
-                        </Form.Group> <br/>
-                    <Button variant="success" onClick={handleSaveProduct}>Add product</Button>
-                    </Form>
-                </Modal.Body>
-            </Modal>           
+        <Fragment>
             <Button onClick={() => setShowModal(true)}>Add product</Button>
-        </Container>
+                <Modal show={showModal} onHide={hideModal}>
+                    <Modal.Header closeButton>Add product</Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group>
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control id={"name"} onChange={onChange} value={product.name} isInvalid={errors.name}/>
+                                <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Price</Form.Label>
+                                <Form.Control id={"price"} type="number" onChange={onChange} value={product.price} isInvalid={errors.price}/>
+                                <Form.Control.Feedback type="invalid">{errors.price}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Discount</Form.Label>
+                                <Form.Control id={"discount"} onChange={onChange} value={product.discount} isInvalid={errors.discount}/>
+                                <Form.Control.Feedback type="invalid">{errors.discount}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Ingredients</Form.Label>
+                                <Form.Control id={"ingredients"} onChange={onChange} value={product.ingredients} isInvalid={errors.ingredients}/>
+                                <Form.Control.Feedback type="invalid">{errors.ingredients}</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Category</Form.Label>
+                                <Form.Select id={"categoryId"} onChange={onChange} isInvalid={errors.categoryId}>
+                                    <option value={0}>Select a category</option>
+                                    {
+                                        categories.map((category, i) => <option id={i} value={category.id} key={i}>{category.name}</option>)
+                                    }
+                                </Form.Select>
+                            </Form.Group> <br/>
+                        <Button variant="success" onClick={handleSaveProduct}>Add product</Button>
+                        </Form>
+                    </Modal.Body>
+                </Modal>           
+        </Fragment>       
     )
 
 }
