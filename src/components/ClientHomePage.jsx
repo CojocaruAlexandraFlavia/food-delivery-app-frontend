@@ -23,8 +23,7 @@ const ClientHomePage = () => {
                 "Authorization": `Bearer ${token}`
             }
         }).then(response => response.json()).then(response => {
-            const availableRestaurants = response.filter(r => r.locations.filter(l => l.availability.toString() === "true").length > 0)
-            setRestaurants(availableRestaurants)
+            setRestaurants(response)
         })
     }, [user.preferredCity])
 
@@ -61,7 +60,6 @@ const ClientHomePage = () => {
     return(
         <Fragment>
             <ClientNavbar/> <br/>
-            {/* <div style={{backgroundImage:`url("https://valentinvasile.ro/wp-content/uploads/2020/01/restaurant-food-salat-2.jpg")`}}> */}
                 <Container style={boxStyle}>
                     <div style={{display:"flex", justifyContent:"space-between"}}>
                         <h3>Restaurants from your preferred city: {user.preferredCity}</h3>
@@ -100,9 +98,7 @@ const ClientHomePage = () => {
                             <Button onClick={handleChangePreferredCity} variant="success">Change</Button>
                         </Modal.Footer>
                     </Modal>
-                </Container>
-            {/* </div> */}
-            
+                </Container>           
         </Fragment>
     )
 
