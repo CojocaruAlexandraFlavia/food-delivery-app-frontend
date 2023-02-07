@@ -3,10 +3,12 @@ import { Container } from "react-bootstrap"
 const ManagerAccountInfo = ({manager}) => {
 
 
-    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey" , padding:"10px", backgroundColor:"white"}
 
     return(
-        <Container style={boxStyle}>
+        
+        
+   <Container style={boxStyle}>
             <h3  style={{textAlign: "center"}}>Account info</h3> <br/>
             <div style={boxStyle}>
                 <h5>First name: {manager.firstName} <br/>
@@ -17,6 +19,7 @@ const ManagerAccountInfo = ({manager}) => {
                 {/* <a href="/manager-account/account-info/edit">Edit details</a> */}
             </div> 
         </Container>
+       
     )
 }
 

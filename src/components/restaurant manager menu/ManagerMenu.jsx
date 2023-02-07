@@ -53,12 +53,13 @@ const ManagerMenu = () => {
     }
 
     return(
+        
         <Fragment>
             <ManagerNavbar/> <br/>
             <Container>
                 <Row>
                     <Col md={3}>
-                        <ListGroup variant="flush" style={{boxShadow:"1px 1px 4px 4px lightgrey"}}>
+                        <ListGroup variant="flush" style={{boxShadow:"1px 1px 4px 4px lightgrey", backgroundColor:"white"}}>
                                 {
                                     listItems.map((listItem, i) => <ListGroup.Item key={i} active={listItems[i] === listItemActive} 
                                                                                 action href={"/manager-account/"+ buildListItem(listItem)}>

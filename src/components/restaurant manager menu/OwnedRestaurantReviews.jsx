@@ -6,7 +6,7 @@ import { AiOutlineArrowUp, AiOutlineArrowDown} from "react-icons/ai"
 
 const OwnedRestaurantReviews = ({restaurants}) => {
 
-    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px", backgroundColor:"white"}
 
     const [seeDetails, setSeeDetails] = useState([])
 

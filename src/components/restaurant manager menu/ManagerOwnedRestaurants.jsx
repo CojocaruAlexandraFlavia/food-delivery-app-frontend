@@ -8,7 +8,7 @@ import AddProduct from "./AddProduct"
 
 const ManagerOwnedRestaurants = ({restaurants}) => {
 
-    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+    const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px", backgroundColor:"white"}
     const [seeDetails, setSeeDetails] = useState([])
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const ManagerOwnedRestaurants = ({restaurants}) => {
                     <div style={boxStyle}>
                         <Row>
                             <Col md={11}>
-                                <h3>{restaurant.name}</h3>
+                                <h3> ~{restaurant.name}~</h3>
                                 {
                                     seeDetails[i]? <Fragment>
                                         <h4>Locations:</h4>
