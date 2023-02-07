@@ -14,7 +14,11 @@ const UpdateRestaurant = ({restaurantId, getAllRestaurants, setEditModal}) => {
     const [errors, setErrors] = useState({})
 
     useEffect(() => {
-        fetch(`/restaurant/get-by-id/${id}`).then(response => response.json()).then(response => {
+        fetch(`/restaurant/get-by-id/${id}`, {
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
+        }).then(response => response.json()).then(response => {
             setRestaurant({
                 name: response.name,
                 phoneNumber: response.phoneNumber
@@ -41,7 +45,8 @@ const UpdateRestaurant = ({restaurantId, getAllRestaurants, setEditModal}) => {
                 method: "PUT",
                 body: JSON.stringify(restaurant),
                 headers: {
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 }
             }).then(response => {
                 if(response.status === 200) {

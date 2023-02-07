@@ -16,7 +16,11 @@ const UpdateProduct = ({productId}) => {
   const [updated, setUpdated] = useState(false)
 
   useEffect(() => {
-    fetch(`/product/get-by-id/${id}`).then(response => response.json()).then(response => {
+    fetch(`/product/get-by-id/${id}`, {
+        headers: {
+            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        }
+    }).then(response => response.json()).then(response => {
       setProduct({
         name: response.name,
         price: response.price,
@@ -48,7 +52,8 @@ const UpdateProduct = ({productId}) => {
             method: "PUT",
             body: JSON.stringify(product),
             headers: {
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
             }
         }).then(response => {
             if(response.status === 200) {

@@ -26,27 +26,35 @@ const DeliverCurrentOrder = ({deliver}) => {
 
 
     const changeStatus = () => {
-        console.log(currentOrder.id)
-        console.log(nextStatus)
         fetch(`/order/change-status/${currentOrder.id}/${nextStatus}`, {
-            method: "PATCH"
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
         }).then(response => response.json()).then(response => {
             setNextStatus(getNextStatus())
-            console.log(response)
             setCurrentOrder(response)
+            window.location.reload()
         })
     }
 
     const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
 
+    const transformEnumValues = (value) => {
+        return (value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()).replaceAll("_", " ")
+    }
+
     return(
         <Fragment>
+            <div style={boxStyle}>
             {
                 currentOrder !== undefined? <Fragment>
-                    <Button onClick={changeStatus}>Change status to {nextStatus}</Button>
+                    <Button onClick={changeStatus}>Change status to {transformEnumValues(nextStatus)}</Button> <br/> <br/>
                     <Order orderId={currentOrder.id}/>
                 </Fragment>: null
             }
+            </div>
+           
            
         </Fragment>
     )

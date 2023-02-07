@@ -14,7 +14,7 @@ const ManagerAccountInfo = ({manager}) => {
                     Email: {manager.email} <br/>
                     Phone number: {manager.phoneNumber}
                 </h5>
-                <a href="/manager-account/account-info/edit">Edit details</a>
+                {/* <a href="/manager-account/account-info/edit">Edit details</a> */}
             </div> 
         </Container>
     )

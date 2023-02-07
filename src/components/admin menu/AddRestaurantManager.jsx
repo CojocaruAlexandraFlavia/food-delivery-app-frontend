@@ -50,6 +50,7 @@ const AddRestaurantManager = (props) => {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 },
                 body: JSON.stringify(restaurantManager),
             }).then(response => {

@@ -46,7 +46,8 @@ const AddDeliveryUser = () => {
                 method: "POST",
                 body: JSON.stringify(deliveryUser),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 }
             }).then(response => {
                 if(response.status === 200) {

@@ -1,11 +1,37 @@
-import { Fragment } from "react"
-import { Button, Card, Col, Container, Row } from "react-bootstrap"
+import { useContext, useState } from "react"
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap"
 import TextTruncate from "react-text-truncate"
+import UserContext from "../context/UserContext"
 
 
 const ClientFavoriteProducts = ({products}) => {
 
+    const {user} = useContext(UserContext)
+    const [productAddedToCart, setProductAddedToCart] = useState(false)
     const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
+
+    const addProductToCart = (id) => { 
+          const requestBody ={
+            "clientId":user.id,
+            "productId":id,
+            "quantity":1
+          }
+        fetch( `/order/add-products`, {
+            method: "PUT",
+            body:JSON.stringify(requestBody),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
+        }).then(response => {
+          if(response.status === 200) {
+            setProductAddedToCart(true)
+              setTimeout(() => {
+                setProductAddedToCart(false)
+              }, 5000)
+          }
+        })
+      }
 
     return(
         <Container style={boxStyle}>
@@ -24,13 +50,16 @@ const ClientFavoriteProducts = ({products}) => {
                             <Card.Text>Price: {product.price}</Card.Text>
                         </Card.Body> 
                         <Card.Footer style={{display:"flex", justifyContent:"center"}}>
-                            <Button variant="success" style={{alignSelf:"center"}}>Add to cart</Button>
+                            <Button disabled={product.availability.toString() === "false"} variant="success" 
+                                style={{alignSelf:"center"}} onClick={() => addProductToCart(product.id)}>Add to cart</Button>
                         </Card.Footer>                      
                     </Card>
                 </Col>): null
             }
             </Row>
-         
+            <Modal show={productAddedToCart}>
+                <Modal.Body>Product added to cart!</Modal.Body>
+            </Modal>
         </Container>
     )
 

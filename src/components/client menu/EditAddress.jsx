@@ -43,7 +43,8 @@ const EditAddress = ({address}) => {
                 method: "PUT",
                 body: JSON.stringify(updatedAddress),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 }
             }).then(response => response.json()).then(response => {
                 setUser(response)

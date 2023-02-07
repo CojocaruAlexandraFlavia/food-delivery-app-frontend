@@ -44,7 +44,8 @@ const ClientSavedAddresses = ({addresses, user, setUser}) => {
                 method: "POST",
                 body: JSON.stringify(newAddress),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 }
             }).then(response => response.json()).then(response => {
                 setUser(response)
@@ -66,7 +67,10 @@ const ClientSavedAddresses = ({addresses, user, setUser}) => {
     
     const handleDeleteAddress = () => {
         fetch(`/user/delete-address/${addressToDelete.id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
         }).then(response => response.json()).then(response => {
             setUser(response)
             setShowDeleteConfirmModal(false)

@@ -14,7 +14,7 @@ const DeliverAccountInfo = ({deliver}) => {
                     Email: {deliver.email} <br/>
                     Phone number: {deliver.phoneNumber}
                 </h5>
-                <a href="/deliver-account/account-info/edit">Edit details</a>
+                {/* <a href="/deliver-account/account-info/edit">Edit details</a> */}
             </div> 
         </Container>
     )

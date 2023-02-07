@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, Fragment } from "react"
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import UserContext from "../context/UserContext"
+import {FaShoppingCart} from "react-icons/fa"
 
 
 const ClientNavbar = () => {
@@ -41,6 +42,9 @@ const ClientNavbar = () => {
                         </Nav>
                         <Navbar.Collapse className="justify-content-end">
                         <Nav>
+                            <Nav.Link href="/client-account/view-cart">
+                                <FaShoppingCart size={25}/>
+                            </Nav.Link>
                             <NavDropdown title={user.firstName + " " + user.lastName}>
                                 <NavDropdown.Item href={"/client-account/account-info"}>Account info</NavDropdown.Item>
                                 <NavDropdown.Divider/>

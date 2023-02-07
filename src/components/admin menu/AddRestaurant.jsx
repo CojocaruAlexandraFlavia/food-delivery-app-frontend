@@ -82,8 +82,6 @@ const AddRestaurant = () => {
                 city:"",
                 address:""
             })
-            console.log("added location")
-            console.log(restaurant)
             setLocationErrors({})
             setErrors({...errors, locations:""})
             setLocationAdded(true)
@@ -99,9 +97,6 @@ const AddRestaurant = () => {
         if(Object.keys(newErrors).length > 0) {
             setErrors(newErrors)
         } else {
-
-            console.log(restaurant)
-
             const controller = new AbortController()
             const signal = controller.signal
 
@@ -111,7 +106,8 @@ const AddRestaurant = () => {
                 signal:signal,
                 headers:{
                     "Content-Type":"application/json",
-                    "Accept":"application/json"
+                    "Accept":"application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 }
             }).then(response => {
                 if(response.status === 200) {

@@ -33,32 +33,38 @@ const Login = () => {
     }
 
     return (
-        <Container className="loginContainer">
-            <div className={"loginDiv"}>
-                <h3 style={{textAlign:"center"}}>Login</h3> <br/>
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                    </Form.Group>
-                    {
-                        error? <Fragment>
-                            <Form.Text style={{color: "red", fontWeight: "bold", textTransform:"uppercase"}}>{error}</Form.Text>
-                            <br/>
-                        </Fragment>: null
-                    } <br/>
-                    <div style={{display:"flex", justifyContent:"center"}}>
-                        <Button style={{width:"50%", alignSelf:"center"}} onClick={submitLogin} variant={"success"}>Login</Button>
-                    </div>                   
-                </Form> <br/>
-                <p style={{textAlign:"center"}}>You don't have an account? <a href="/register">Register</a></p>
+        <Fragment>
+            <div style={{backgroundImage:`url("https://valentinvasile.ro/wp-content/uploads/2020/01/restaurant-food-salat-2.jpg")`}}>
+                <Container className="loginContainer">
+                <div className={"loginDiv"}>
+                    <h3 style={{textAlign:"center"}}>Login</h3> <br/>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        </Form.Group>
+                        {
+                            error? <Fragment>
+                                <Form.Text style={{color: "red", fontWeight: "bold", textTransform:"uppercase"}}>{error}</Form.Text>
+                                <br/>
+                            </Fragment>: null
+                        } <br/>
+                        <div style={{display:"flex", justifyContent:"center"}}>
+                            <Button style={{width:"50%", alignSelf:"center"}} onClick={submitLogin} variant={"success"}>Login</Button>
+                        </div>                   
+                    </Form> <br/>
+                    <p style={{textAlign:"center"}}>You don't have an account? <a href="/register">Register</a></p>
+                </div>
+                
+            </Container>
             </div>
-            
-        </Container>
+        </Fragment>
+        
+        
     )
 }
 

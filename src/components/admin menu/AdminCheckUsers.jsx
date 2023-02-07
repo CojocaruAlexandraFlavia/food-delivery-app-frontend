@@ -8,7 +8,11 @@ const AdminCheckUsers = () => {
     const [clients, setClients] = useState([])
 
     useEffect(() => {
-        fetch("/user/get-all-clients")
+        fetch("/user/get-all-clients", {
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
+        })
             .then(response => response.json())
             .then(response => setClients(response))
     }, [])
@@ -17,7 +21,7 @@ const AdminCheckUsers = () => {
 
     return(
         <Container style={boxStyle}>
-            <h2 style={{textAlign:"center"}}>Check registered users</h2> <br/>
+            <h2 style={{textAlign:"center"}}>Check registered users {clients !== undefined? "(" + clients.length.toString() + ")":0}</h2> <br/>
             {
                 clients !== undefined? clients.map((client, i) => <Fragment key={i}>
                     <div style={boxStyle}>

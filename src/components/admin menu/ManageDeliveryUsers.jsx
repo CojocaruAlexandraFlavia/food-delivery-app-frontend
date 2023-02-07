@@ -24,7 +24,10 @@ const ManageDeliveryUsers = () => {
 
     const deleteDeliveryUser = (id) => {
         fetch(`/order/delete-delivery-user/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
         }).then(response => {
             if(response.status === 200) {
                 getAllDeliveryUsers()

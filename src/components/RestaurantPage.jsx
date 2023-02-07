@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useEffect, useState, Fragment } from "react";
 import { Container, Row, Col} from "react-bootstrap"
 import { useParams } from "react-router"
@@ -6,10 +6,14 @@ import LoadingSpinner from "./util/LoadingSpinner"
 import ProductsPage from "./ProductsPage"
 import { Rating } from "react-simple-star-rating";
 import ClientNavbar from "./client menu/ClientNavbar";
+import { useContext } from "react";
+import UserContext from "./context/UserContext";
+import AddReview from "./AddReview";
 
 
 const RestaurantPage = ({restaurantId}) => {
 
+    const {user} = useContext(UserContext)
     const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
 
     const {idParam} = useParams()
@@ -18,13 +22,19 @@ const RestaurantPage = ({restaurantId}) => {
     const[restaurant, setRestaurant] = useState([])
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        fetch(`/restaurant/get-by-id/${id}`)
+    const getRestaurantById = useCallback(() => {
+        fetch(`/restaurant/get-by-id/${id}`, {
+            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        })
             .then(response => response.json()).then(response => {
                 setRestaurant(response)
                 setLoading(false)
             })
     }, [id])
+
+    useEffect(() => {
+       getRestaurantById()
+    }, [getRestaurantById])
 
     return(
         <Fragment>
@@ -53,26 +63,29 @@ const RestaurantPage = ({restaurantId}) => {
                                 <br/>
                             </Fragment>)
                         } <br/>
-                        <h5>Reviews:</h5>
-                            {
-                                restaurant.reviews.map((review, j) => <Fragment key={j}>
-                                    <div style={boxStyle}>
-                                        <Row>
-                                            <Col md={3} style={{display:"flex"}}>
-                                                <h6 style={{alignSelf:"center"}}>{review.clientFirstName} {review.clientLastName}</h6>
-                                            </Col>
-                                            <Col md={9}>
-                                                <Rating size={25} readonly initialValue={review.stars} allowFraction/>
-                                                <h6>Comment: {review.comment}</h6>
-                                            </Col>
-                                        </Row>                                                                               
-                                    </div>                                   
-                                </Fragment>)
-                            }
-                            <br/> <br/>
-                            <h5>Products:</h5> <br/>
-                        <ProductsPage  restaurantId={restaurant.id}/>   
-                        
+                        {
+                            user.role === "ROLE_CLIENT_USER"? <div style={{display:"flex", justifyContent:"space-between"}}>
+                                <h5>Reviews:</h5>
+                                <AddReview restaurantId={restaurant.id} getRestaurantById={getRestaurantById}/>
+                            </div>: <h5>Reviews:</h5>
+                        } <br/>
+                        {
+                            restaurant.reviews.length > 0? restaurant.reviews.map((review, j) => <Fragment key={j}>
+                                <div style={boxStyle}>
+                                     <Row>
+                                        <Col md={3} style={{display:"flex"}}>
+                                            <h6 style={{alignSelf:"center"}}>{review.clientFirstName} {review.clientLastName}</h6>
+                                        </Col>
+                                        <Col md={9}>
+                                            <Rating size={25} readonly initialValue={review.stars} allowFraction/>
+                                            <h6>Comment: {review.comment}</h6>
+                                        </Col>
+                                    </Row>                                                                               
+                                </div>                                   
+                            </Fragment>): <h5>There are no reviews for the moment</h5>
+                        } <br/> <br/>
+                        <h5>Products:</h5> <br/>
+                        <ProductsPage  restaurantId={restaurant.id}/>                          
                 </Fragment>
             }
             </Container>

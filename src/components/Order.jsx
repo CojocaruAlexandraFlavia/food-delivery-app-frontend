@@ -20,13 +20,19 @@ const Order = ({orderId}) => {
 
         if(id !== undefined) {
             fetch(`/order/get-by-id/${id}`, {
-                signal: signal
+                signal: signal,
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                }
             }).then(response => response.json()).then(response => {
                 setOrder(response)
                 setLoading(false)
                 if(response.deliveryUserId !== undefined) {
                     fetch(`/order/delivery-user/${response.deliveryUserId}`, {
-                        signal: signal
+                        signal: signal,
+                        headers: {
+                            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                        }
                     }).then(r => r.json()).then(r => setDeliveryUser(r))
                 }
             })
@@ -41,6 +47,10 @@ const Order = ({orderId}) => {
         return orderProduct.productDto.price - orderProduct.productDto.discount / 100 * orderProduct.productDto.price
     }
 
+    const transformEnumValues = (value) => {
+        return (value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()).replaceAll("_", " ")
+    }
+
     const boxStyle = {boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}
 
     return(
@@ -49,7 +59,7 @@ const Order = ({orderId}) => {
                 loading? <LoadingSpinner/> : 
                 <Fragment>
                     <h2>Order #{order.number}</h2>
-                    <h2>Status: {order.status.replaceAll("_", " ")}</h2>
+                    <h3>Status: {transformEnumValues(order.status)}</h3>
                     <Table responsive bordered hover>
                         <thead>
                             <tr>
@@ -89,21 +99,21 @@ const Order = ({orderId}) => {
                     <Row>
                         <Col md={6}>
                             <div style={{ boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}}>
-                                <h2>Delivery user</h2>
-                                <h4>Name: {deliveryUser.firstName} {deliveryUser.lastName}</h4>
+                                <h5>Delivery user</h5>
+                                <h5>Name: {deliveryUser.firstName} {deliveryUser.lastName}</h5>
                             </div>
                         </Col>
                         <Col md={6}>
                             <div style={{ boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px"}}>
-                                <h3>Delivery address</h3>
-                                <h4>{order.deliveryAddress.address} <br/>
+                                <h5>Delivery address</h5>
+                                <h5>{order.deliveryAddress.address} <br/>
                                     {order.deliveryAddress.city}, {order.deliveryAddress.zipCode}
-                                </h4>
+                                </h5>
                             </div>
                         </Col>
                     </Row>
                     <div style={{ boxShadow:"1px 1px 4px 4px lightgrey", padding:"10px", marginTop:"5%"}}>
-                        <h2>Payment method: {order.paymentType.replaceAll("_", " ")}</h2>
+                        <h5>Payment method: {transformEnumValues(order.paymentType)}</h5>
                     </div>
             </Fragment>
         }

@@ -1,6 +1,6 @@
 import { Fragment } from "react"
 import { useEffect, useState } from "react"
-import { Button, Container, Form, Modal } from "react-bootstrap"
+import { Button, Form, Modal } from "react-bootstrap"
 
 
 const AddProduct = ({restaurantId}) => {
@@ -39,8 +39,11 @@ const AddProduct = ({restaurantId}) => {
     }
 
     useEffect(() => {
-        fetch("/product/categories/all")
-            .then(response => response.json()).then(response => setCategories(response))
+        fetch("/product/categories/all", {
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
+        }).then(response => response.json()).then(response => setCategories(response))
     }, [])
 
     const handleSaveProduct = () => {
@@ -52,7 +55,8 @@ const AddProduct = ({restaurantId}) => {
                 method: "POST",
                 body: JSON.stringify(product),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 }
             }).then(response => response.json()).then(() => {
                 setShowModal(false)

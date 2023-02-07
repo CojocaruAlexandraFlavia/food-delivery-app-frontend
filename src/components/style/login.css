@@ -11,7 +11,12 @@
     align-self: center;
     width: 45%;
     box-shadow:1px 1px 4px 4px lightgrey; 
-    padding:15px
+    padding:15px;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
+    background-size: cover;
+
 }
 
 @media screen and (max-width: 480px) {

@@ -89,7 +89,8 @@ const Register = () => {
     }
 
     return(
-        <Container className="loginContainer">
+        <div style={{backgroundImage:`url("https://valentinvasile.ro/wp-content/uploads/2020/01/restaurant-food-salat-2.jpg")`}}>
+            <Container className="loginContainer">
             <div className="loginDiv">
                 <h3 style={{textAlign:"center"}}>Register</h3> <br/>
                 <Form>
@@ -154,6 +155,8 @@ const Register = () => {
                 </Modal.Body>
             </Modal>      
         </Container>
+        </div>
+        
     )
 }
 

@@ -45,7 +45,8 @@ const EditAdminInfo = ({admin, setUser}) => {
                 method: "PUT",
                 body: JSON.stringify(updatedAdmin),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 }
             }).then(response => response.json()).then(response => {
                     setUpdated(true)

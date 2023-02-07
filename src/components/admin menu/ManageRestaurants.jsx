@@ -13,7 +13,11 @@ const ManageRestaurants = () => {
     const [seeDetails, setSeeDetails] = useState([])
 
     const getAllRestaurants = useCallback(() => {
-        fetch("/restaurant/get-all")
+        fetch("/restaurant/get-all", {
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
+        })
             .then(response => response.json())
             .then(response => {
                 setAllRestaurants(response)
@@ -44,11 +48,14 @@ const ManageRestaurants = () => {
             method: "DELETE"
         }).then(response => {
             if(response.status === 200) {
-                getAllRestaurants()
-                // setDeleted(true)
-                // setTimeout(() => {
-                //     setDeleted(false)
-                // }, 5000)
+                fetch("/restaurant/get-all", {
+                    headers: {
+                        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                    }})
+                .then(response => response.json())
+                .then(response => {
+                    setAllRestaurants(response)
+                })
             }
         })
     }
@@ -59,7 +66,10 @@ const ManageRestaurants = () => {
 
     const changeLocationAvailability = (locationId) => {
         fetch(`/restaurant/change-location-availability/${locationId}`, {
-            method: "PATCH"
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
         }).then(response => response.json()).then(response => setAllRestaurants(response))
     }
 
@@ -87,15 +97,6 @@ const ManageRestaurants = () => {
                                                 <h6>Status: {location.availability.toString() === "true" ? "Available": "Unavailable"}</h6>
                                                 <Button onClick={() => changeLocationAvailability(location.id)}>Change location availability</Button>
                                             </div> <br/>
-                                            <Modal show={showDeleteConfirmModal} onHide={() => setShowConfirmDeleteModal(false)}>
-                                                <ModalBody>
-                                                    Confirm restaurant deletion?
-                                                </ModalBody>
-                                                <ModalFooter>
-                                                    <Button variant="danger" onClick={() => deleteRestaurant(restaurant.id)}>Confirm delete</Button>
-                                                    <Button variant="secondary" onClick={() => setShowConfirmDeleteModal(false)}>Cancel</Button>
-                                                </ModalFooter>
-                                            </Modal>
                                         </Fragment>)
                                     } <br/><br/>                                   
                                     <h4>Products</h4> <br/>
@@ -132,7 +133,16 @@ const ManageRestaurants = () => {
                         <Modal.Body>
                             <UpdateRestaurant getAllRestaurants={getAllRestaurants} setEditModal={setEditModal} restaurantId={restaurant.id}/>
                         </Modal.Body>
-                    </Modal>                   
+                    </Modal>      
+                    <Modal show={showDeleteConfirmModal} onHide={() => setShowConfirmDeleteModal(false)}>
+                                                <ModalBody>
+                                                    Confirm restaurant deletion?
+                                                </ModalBody>
+                                                <ModalFooter>
+                                                    <Button variant="danger" onClick={() => deleteRestaurant(restaurant.id)}>Confirm delete</Button>
+                                                    <Button variant="secondary" onClick={() => setShowConfirmDeleteModal(false)}>Cancel</Button>
+                                                </ModalFooter>
+                                            </Modal>             
                 </Fragment>)
             }
           

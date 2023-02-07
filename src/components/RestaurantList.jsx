@@ -6,7 +6,9 @@ const RestaurantList = () => {
 
     const[restaurant, setRestaurants]= useState([])
     const fetchData = () => {
-        return fetch(`/restaurant/get-all`)
+        return fetch(`/restaurant/get-all`, {
+            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        })
               .then((response) => response.json())
               .then((data) => setRestaurants(data));
       }

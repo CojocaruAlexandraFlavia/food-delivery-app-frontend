@@ -30,11 +30,13 @@ const NewReceivedOrders = () => {
 
     const assignOrder = () => {
         fetch(`/order/assign-deliver-to-order/${orderToSee.id}/${user.id}`, {
-            method: "PATCH"
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
         })
             .then(response => response.json())
             .then(response => {
-                console.log(response)
                 setOrderToSee(response)
                 hideOrderModal()
             })
@@ -43,21 +45,21 @@ const NewReceivedOrders = () => {
     return(
         <Container style={boxStyle}>
             <Fragment>
-                <h1>New orders</h1>
+                <h3 style={{textAlign:"center"}}>New orders</h3> <br/>
                 {
-                    newOrders.map((order, i) => <Fragment key={i}>
+                    newOrders !== undefined && newOrders.length > 0? newOrders.map((order, i) => <Fragment key={i}>
                         <div style={boxStyle}>
                             <Row>
-                                <Col md={6}>
-                                    <h4>Restaurant: {order.products[0].productDto.restaurantName}</h4>
-                                    <h5>Value: {order.value}</h5>
+                                <Col md={9}>
+                                    <h5>Restaurant: {order.products[0].productDto.restaurantName}</h5>
+                                    <h5>Value: &euro;{order.value}</h5>
                                 </Col>
-                                <Col md={6}>
-                                    <Button onClick={() => openOrderModal(order)}>See order details</Button>
+                                <Col md={3} style={{display:"flex"}}>
+                                    <Button style={{height:"fit-content", alignSelf:"center"}} onClick={() => openOrderModal(order)}>See order details</Button>
                                 </Col>
                             </Row>
-                        </div>
-                    </Fragment>)
+                        </div> <br/>
+                    </Fragment>): <h5>There are no new orders...</h5>
                 }
                 <Modal show={showModal} onHide={hideOrderModal} scrollable animation>
                     <Modal.Header closeButton>

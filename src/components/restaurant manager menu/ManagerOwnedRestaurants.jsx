@@ -51,10 +51,8 @@ const ManagerOwnedRestaurants = ({restaurants}) => {
                                         <div style={{display:"flex", justifyContent:"space-between"}}>
                                             <h4>Products</h4>
                                             <AddProduct restaurantId={restaurant.id}/>
-                                        </div>
-                                         <br/>
-                                        <ProductsPage restaurantId={restaurant.id}/>
-                                        <br/>
+                                        </div> <br/>
+                                        <ProductsPage restaurantId={restaurant.id}/><br/>
                                         <h4>Reviews</h4> <br/>
                                         {
                                             restaurant.reviews.map((review, index) => <Fragment key={index}>
