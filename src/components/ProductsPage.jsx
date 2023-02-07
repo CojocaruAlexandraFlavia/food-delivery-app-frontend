@@ -72,10 +72,10 @@ const ProductsPage = ({restaurantId}) => {
         const controller = new AbortController()
         const signal = controller.signal
 
-        setProductFavorite({
-            productId: id, 
-            clientUserId: user.id
-        })
+        productFavorite.productId = id
+        productFavorite.clientUserId = user.id
+
+        console.log(productFavorite)
 
         fetch(`/product/add-product-to-client-favorites`, {
             method:"POST",
@@ -88,10 +88,10 @@ const ProductsPage = ({restaurantId}) => {
             }
         }).then(response => {
             if(response.status === 200) {
-            setProductAddedFavoriteList(true)
-                setTimeout(() => {
-                    setProductAddedFavoriteList(false)
-                }, 2000)
+                setProductAddedFavoriteList(true)
+                    setTimeout(() => {
+                        setProductAddedFavoriteList(false)
+                    }, 2000)
             } else {
                 setShowAlreadyAddedToFavorite(true)
                 setTimeout(() => {
