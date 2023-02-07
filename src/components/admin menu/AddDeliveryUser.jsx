@@ -56,6 +56,8 @@ const AddDeliveryUser = () => {
                     setTimeout(() => {
                         setAdded(false)
                     }, 3000)
+                } else {
+                    setErrors({...errors, email: "Email address already exists!"})
                 }
             })
         }
@@ -71,16 +73,21 @@ const AddDeliveryUser = () => {
                     <Form.Label>First name</Form.Label>
                     <Form.Control isInvalid={errors.firstName} id={"firstName"} value={deliveryUser.firstName} onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.firstName}</Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> <br/>
                 <Form.Group>
                     <Form.Label>Last name</Form.Label>
                     <Form.Control isInvalid={errors.lastName} id={"lastName"} value={deliveryUser.lastName} onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.lastName}</Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> <br/>
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
                     <Form.Control isInvalid={errors.email} id={"email"} value={deliveryUser.email} type="email" onChange={onChange}/>
                     <Form.Control.Feedback type={"invalid"}>{errors.email}</Form.Control.Feedback>
+                </Form.Group> <br/>
+                <Form.Group>
+                    <Form.Label>Preferred city</Form.Label>
+                    <Form.Control isInvalid={errors.preferredCity} id={"preferredCity"} value={deliveryUser.preferredCity} onChange={onChange}/>
+                    <Form.Control.Feedback type={"invalid"}>{errors.preferredCity}</Form.Control.Feedback>
                 </Form.Group> <br/>
                 <Button variant="success" onClick={saveDeliveryUser}>Save delivery user</Button>
                 <br/>

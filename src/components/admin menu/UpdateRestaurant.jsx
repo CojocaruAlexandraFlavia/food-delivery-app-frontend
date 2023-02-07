@@ -14,16 +14,18 @@ const UpdateRestaurant = ({restaurantId, getAllRestaurants, setEditModal}) => {
     const [errors, setErrors] = useState({})
 
     useEffect(() => {
-        fetch(`/restaurant/get-by-id/${id}`, {
-            headers: {
-                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
-            }
-        }).then(response => response.json()).then(response => {
-            setRestaurant({
-                name: response.name,
-                phoneNumber: response.phoneNumber
+        if(id > 0) {
+            fetch(`/restaurant/get-by-id/${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                }
+            }).then(response => response.json()).then(response => {
+                setRestaurant({
+                    name: response.name,
+                    phoneNumber: response.phoneNumber
+                })
             })
-        })
+        }      
     }, [id])
 
     const findFormErrors = () => {

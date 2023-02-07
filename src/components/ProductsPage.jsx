@@ -75,8 +75,6 @@ const ProductsPage = ({restaurantId}) => {
         productFavorite.productId = id
         productFavorite.clientUserId = user.id
 
-        console.log(productFavorite)
-
         fetch(`/product/add-product-to-client-favorites`, {
             method:"POST",
             body: JSON.stringify(productFavorite),
