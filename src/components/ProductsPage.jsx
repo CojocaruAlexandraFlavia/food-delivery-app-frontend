@@ -19,7 +19,7 @@ const ProductsPage = ({restaurantId}) => {
     const [productAddedFavoriteList, setProductAddedFavoriteList] = useState(false)
     const [productFavorite, setProductFavorite] = useState({
       productId: 0,
-      clientUserId: 0
+      clientId: 0
     })
     const [productAddedToCart, setProductAddedToCart] = useState(false)
     const [showAlreadyAddedToFavorite, setShowAlreadyAddedToFavorite] = useState(false)
@@ -73,7 +73,7 @@ const ProductsPage = ({restaurantId}) => {
         const signal = controller.signal
 
         productFavorite.productId = id
-        productFavorite.clientUserId = user.id
+        productFavorite.clientId = user.id
 
         fetch(`/product/add-product-to-client-favorites`, {
             method:"POST",
@@ -144,8 +144,12 @@ const ProductsPage = ({restaurantId}) => {
                 allProducts.map((product, i) => <Fragment key={i}>
                     <div style={boxStyle}>
                         <h5>{product.name}</h5>
-                        <h6>Price: {product.price}</h6>
-                        <h6>Discount: {product.discount}</h6>
+
+                        <h6>Initial price: &euro;{(product.price).toFixed(2)}</h6>
+                        {product.discount !== 0 &&   <h6 style ={{color:"#d41919"}}>Discount: {product.discount}%</h6>}
+                      
+                        <h6>Final price: &euro;{((product.price -
+                                            (product.discount / 100 * product.price))).toFixed(2)}</h6>
                         <h6>Ingredients: {product.ingredients}</h6>
                         <h6>Availability: {product.availability.toString()}</h6> <br/>
                         {
