@@ -11,6 +11,8 @@ const ManageRestaurants = () => {
     const [editModal, setEditModal] = useState(false)
     const [showDeleteConfirmModal, setShowConfirmDeleteModal] = useState(false)
     const [seeDetails, setSeeDetails] = useState([])
+    const [restaurantIdToEdit, setRestaurantIdToEdit] = useState(0)
+    const [restaurantIdToDelete, setRestaurantIdToDelete] = useState(0)
 
     const getAllRestaurants = useCallback(() => {
         fetch("/restaurant/get-all", {
@@ -55,6 +57,7 @@ const ManageRestaurants = () => {
                 .then(response => response.json())
                 .then(response => {
                     setAllRestaurants(response)
+                    setShowConfirmDeleteModal(false)                   
                 })
             }
         })
@@ -84,8 +87,14 @@ const ManageRestaurants = () => {
                                 <div style={{display:"flex", justifyContent:"space-between"}}>
                                     <h3>{restaurant.name}</h3>
                                     <div>
-                                        <Button variant="danger" onClick={() => setShowConfirmDeleteModal(true)}>Delete</Button>
-                                        <Button onClick={() => setEditModal(true)}>Edit</Button>
+                                        <Button variant="danger" onClick={() => {
+                                            setRestaurantIdToDelete(restaurant.id)
+                                            setShowConfirmDeleteModal(true)
+                                        }}>Delete</Button>
+                                        <Button onClick={() => {
+                                            setRestaurantIdToEdit(restaurant.id)
+                                            setEditModal(true)
+                                        }}>Edit</Button>
                                     </div>                       
                                 </div>
                             { seeDetails[i]? <Fragment>
@@ -131,18 +140,18 @@ const ManageRestaurants = () => {
                     <Modal show={editModal} onHide={closeModal}>
                         <Modal.Header closeButton>Edit restaurant</Modal.Header>
                         <Modal.Body>
-                            <UpdateRestaurant getAllRestaurants={getAllRestaurants} setEditModal={setEditModal} restaurantId={restaurant.id}/>
+                            <UpdateRestaurant getAllRestaurants={getAllRestaurants} setEditModal={setEditModal} restaurantId={restaurantIdToEdit}/>
                         </Modal.Body>
                     </Modal>      
                     <Modal show={showDeleteConfirmModal} onHide={() => setShowConfirmDeleteModal(false)}>
-                                                <ModalBody>
-                                                    Confirm restaurant deletion?
-                                                </ModalBody>
-                                                <ModalFooter>
-                                                    <Button variant="danger" onClick={() => deleteRestaurant(restaurant.id)}>Confirm delete</Button>
-                                                    <Button variant="secondary" onClick={() => setShowConfirmDeleteModal(false)}>Cancel</Button>
-                                                </ModalFooter>
-                                            </Modal>             
+                        <ModalBody>
+                            Confirm restaurant deletion?
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button variant="danger" onClick={() => deleteRestaurant(restaurantIdToDelete)}>Confirm delete</Button>
+                            <Button variant="secondary" onClick={() => setShowConfirmDeleteModal(false)}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>             
                 </Fragment>)
             }
           
