@@ -32,6 +32,23 @@ const ClientFavoriteProducts = ({products}) => {
           }
         })
       }
+      const removeProductFromFavorites = (id) => {
+        const requestBody ={
+            "clientId":user.id,
+            "productId":id
+          }
+          
+          fetch( `/product/remove-product-from-client-favorites`, {
+            method: "POST",
+            body:JSON.stringify(requestBody),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+            }
+        })
+        window.location.reload(false);
+        
+      }
 
     return(
         <Container style={boxStyle}>
@@ -43,15 +60,17 @@ const ClientFavoriteProducts = ({products}) => {
                         <Card.Header>
                         <Card.Title>
                                 <TextTruncate line={1} truncateText={"..."} text={product.name}/>
+                               
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>                          
                             <Card.Text>Restaurant: {product.restaurantName}</Card.Text>
-                            <Card.Text>Price: {product.price}</Card.Text>
+                            <Card.Text>Price: &euro;{product.price}</Card.Text>
                         </Card.Body> 
                         <Card.Footer style={{display:"flex", justifyContent:"center"}}>
                             <Button disabled={product.availability.toString() === "false"} variant="success" 
-                                style={{alignSelf:"center"}} onClick={() => addProductToCart(product.id)}>Add to cart</Button>
+                                style={{alignSelf:"left"}} onClick={() => addProductToCart(product.id)}>Add to cart</Button>
+                             <Button variant="danger" onClick={() => removeProductFromFavorites(product.id)} style={{alignSelf:"right", marginLeft:4}}> - </Button>
                         </Card.Footer>                      
                     </Card>
                 </Col>): null
