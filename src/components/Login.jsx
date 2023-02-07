@@ -34,7 +34,7 @@ const Login = () => {
 
     return (
         <Fragment>
-            <div style={{backgroundImage:`url("https://valentinvasile.ro/wp-content/uploads/2020/01/restaurant-food-salat-2.jpg")`}}>
+            <div style={{backgroundImage:`url("https://valentinvasile.ro/wp-content/uploads/2020/01/restaurant-food-salat-2.jpg")`, backgroundSize:"cover" }}>
                 <Container className="loginContainer">
                 <div className={"loginDiv"}>
                     <h3 style={{textAlign:"center"}}>Login</h3> <br/>
