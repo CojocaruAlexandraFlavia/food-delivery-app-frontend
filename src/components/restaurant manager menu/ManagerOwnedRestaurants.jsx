@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react"
 import { Container, Row, Col, Button } from "react-bootstrap"
-import { AiOutlineArrowUp, AiOutlineArrowDown} from "react-icons/ai"
+// import { AiOutlineArrowUp, AiOutlineArrowDown} from "react-icons/ai"
 import ProductsPage from "../ProductsPage"
 import { Rating } from 'react-simple-star-rating'
 import AddProduct from "./AddProduct"
@@ -68,11 +68,11 @@ const ManagerOwnedRestaurants = ({restaurants}) => {
                             </Col>
                             <Col md={1}>
                                 {
-                                    seeDetails[i]? <Button onClick={() => handlePressArrow(false, i)}>
-                                        <AiOutlineArrowUp/>
-                                    </Button> : <Button  onClick={() => handlePressArrow(true, i)}>
-                                        <AiOutlineArrowDown/>
-                                    </Button>
+                                    //seeDetails[i]? <Button onClick={() => handlePressArrow(false, i)}>
+                                       // <AiOutlineArrowUp/>
+                                   // </Button> : <Button  onClick={() => handlePressArrow(true, i)}>
+                                      //  <AiOutlineArrowDown/>
+                                    //</Button>
                                        
                                 }
                             </Col>

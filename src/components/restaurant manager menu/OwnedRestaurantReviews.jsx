@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from "react"
 import { Col, Container, Row, Button } from "react-bootstrap"
 import { Rating } from 'react-simple-star-rating'
-import { AiOutlineArrowUp, AiOutlineArrowDown} from "react-icons/ai"
+// import { AiOutlineArrowUp, AiOutlineArrowDown} from "react-icons/ai"
 
 
 const OwnedRestaurantReviews = ({restaurants}) => {
@@ -57,11 +57,11 @@ const OwnedRestaurantReviews = ({restaurants}) => {
                                 </Col>
                                 <Col md={1}>
                                 {
-                                    seeDetails[i]? <Button onClick={() => handlePressArrow(false, i)}>
-                                        <AiOutlineArrowUp/>
-                                    </Button> : <Button  onClick={() => handlePressArrow(true, i)}>
-                                        <AiOutlineArrowDown/>
-                                    </Button>
+                                    //seeDetails[i]? <Button onClick={() => handlePressArrow(false, i)}>
+                                       // <AiOutlineArrowUp/>
+                                    //</Button> : <Button  onClick={() => handlePressArrow(true, i)}>
+                                       // <AiOutlineArrowDown/>
+                                   // </Button>
                                        
                                 }
                                 </Col>

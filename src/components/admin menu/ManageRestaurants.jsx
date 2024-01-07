@@ -2,7 +2,7 @@ import { Fragment, useState, useCallback, useEffect } from "react"
 import { Button, Col, Container, Modal, ModalBody, ModalFooter, Row } from "react-bootstrap"
 import ProductsPage from "../ProductsPage"
 import UpdateRestaurant from "./UpdateRestaurant"
-import { AiOutlineArrowUp, AiOutlineArrowDown} from "react-icons/ai"
+// import { AiOutlineArrowUp, AiOutlineArrowDown} from "react-icons/ai"
 import {Rating} from "react-simple-star-rating"
 
 const ManageRestaurants = () => {
@@ -125,11 +125,11 @@ const ManageRestaurants = () => {
                             </Col> 
                             <Col md={1}>
                                 {
-                                    seeDetails[i]? <Button onClick={() => handlePressArrow(false, i)}>
-                                        <AiOutlineArrowUp/>
-                                    </Button> : <Button  onClick={() => handlePressArrow(true, i)}>
-                                        <AiOutlineArrowDown/>
-                                    </Button>
+                                    //seeDetails[i]? <Button onClick={() => handlePressArrow(false, i)}>
+                                        //<AiOutlineArrowUp/>
+                                    //</Button> : <Button  onClick={() => handlePressArrow(true, i)}>
+                                        //<AiOutlineArrowDown/>
+                                    //</Button>
                                        
                                 }
                             </Col>                            
