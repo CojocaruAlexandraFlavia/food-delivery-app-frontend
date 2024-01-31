@@ -118,7 +118,7 @@ const CartProducts = () => {
                                             <td style={{paddingLeft:10}}>&euro;{(product.productDto.price * product.quantity).toFixed(2)}</td>
                                         </tr>
                                         <tr>{discount}
-                                            <td style ={{color:"#d41919"}}>{product.productDto.discount}{percent}</td>
+                                            <td style ={{color:"#d41919"}}>{product.productDto.discount * 100}{percent}</td>
                                         </tr>
                                         <tr>{productPrice}
                                             <td>&euro;{((product.productDto.price -

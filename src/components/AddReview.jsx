@@ -12,7 +12,7 @@ const AddReview = ({restaurantId, getRestaurantById}) => {
     const [showModal, setShowModal] = useState(false)
     const [review, setReview] = useState({
         stars: 1,
-        comment: "",
+        message: "",
         clientUserId: user.id,
         restaurantId: restaurantId
     })

@@ -25,11 +25,13 @@ const EditAddress = ({address}) => {
     }
 
     const findUpdatedAddressErrors = () => {
-        const {address, city, zipCode} = updatedAddress
+        const {address, city, zipCode, country, county} = updatedAddress
         const newErrors = {}
 
         if(address === "") newErrors.address = "Required field"
         if(city === "") newErrors.city = "Required field"
+        if(country === "") newErrors.country = "Required field"
+        if(county === "") newErrors.county = "Required field"
 
         return newErrors
     }
@@ -78,6 +80,18 @@ const EditAddress = ({address}) => {
                             <Form.Control id={"zipCode"} value={updatedAddress.zipCode} isInvalid={updatedAddressErrors.zipCode} 
                                     onChange={updatedAddressChange}/>
                             <Form.Control.Feedback type="invalid">{updatedAddressErrors.zipCode}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>County</Form.Label>
+                            <Form.Control id={"county"} value={updatedAddress.county} isInvalid={updatedAddressErrors.county} 
+                                    onChange={updatedAddressChange}/>
+                            <Form.Control.Feedback type="invalid">{updatedAddressErrors.county}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>County</Form.Label>
+                            <Form.Control id={"county"} value={updatedAddress.county} isInvalid={updatedAddressErrors.country} 
+                                    onChange={updatedAddressChange}/>
+                            <Form.Control.Feedback type="invalid">{updatedAddressErrors.country}</Form.Control.Feedback>
                         </Form.Group>
                     </Form>
                 </Modal.Body>

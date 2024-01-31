@@ -11,7 +11,9 @@ const ClientSavedAddresses = ({addresses, user, setUser}) => {
     const [newAddress, setNewAddress] = useState({
         address: "",
         city: "",
-        zipCode: ""
+        zipCode: "",
+        country: "",
+        county: ""
     })
     const [newAddressErrors, setNewAddressErrors] = useState({})
     const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false)
@@ -26,11 +28,13 @@ const ClientSavedAddresses = ({addresses, user, setUser}) => {
     }
 
     const findNewAddressErrors = () => {
-        const {address, city, zipCode} = newAddress
+        const {address, city, country, county} = newAddress
         const newErrors = {}
 
         if(address === "") newErrors.address = "Required field"
         if(city === "") newErrors.city = "Required field"
+        if(country === "") newErrors.country = "Required field"
+        if(county === "") newErrors.county = "Required field"
 
         return newErrors
     }
@@ -52,7 +56,9 @@ const ClientSavedAddresses = ({addresses, user, setUser}) => {
                 setNewAddress({
                     address: "",
                     city: "",
-                    zipCode: ""
+                    zipCode: "",
+                    country: "",
+                    county: ""
                 })
                 setNewAddressErrors({})
                 setShowAddAddressModal(false)
@@ -124,6 +130,18 @@ const ClientSavedAddresses = ({addresses, user, setUser}) => {
                                     onChange={newAddressChange}/>
                                 <Form.Control.Feedback type="invalid">{newAddressErrors.zipCode}</Form.Control.Feedback>
                             </Form.Group>
+                            <Form.Group>
+                            <Form.Label>County</Form.Label>
+                            <Form.Control id={"county"} value={newAddress.county} isInvalid={newAddress.county} 
+                                    onChange={newAddressChange}/>
+                            <Form.Control.Feedback type="invalid">{newAddress.county}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>County</Form.Label>
+                            <Form.Control id={"county"} value={newAddress.county} isInvalid={newAddress.country} 
+                                    onChange={newAddress}/>
+                            <Form.Control.Feedback type="invalid">{newAddress.country}</Form.Control.Feedback>
+                        </Form.Group>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
